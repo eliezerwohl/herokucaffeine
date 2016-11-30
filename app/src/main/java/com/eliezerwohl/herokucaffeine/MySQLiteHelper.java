@@ -43,7 +43,6 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
     public void addBook(String string){
         // 1. get reference to writable DB
         SQLiteDatabase db = this.getWritableDatabase();
-
         // 2. create ContentValues to add key "column"/value
         ContentValues values = new ContentValues();
 //        values.put("site", table.getSite()); // get title
@@ -55,12 +54,12 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
                 values); // key/value -> keys = column names/ values = column values
 
         // 4. close
-       String count =  "SELECT COUNT(*) FROM SITE";
-        Cursor test = db.rawQuery(count, null);
-        if (test.getCount() > 0 ){
-            test.moveToFirst();
-           int daCount = test.getInt(0);
-            Log.d(TAG, "addBook: " +daCount);
+       String query =  "SELECT COUNT(*) FROM SITE";
+        Cursor count = db.rawQuery(query, null);
+        if (count.getCount() > 0 ){
+            count.moveToFirst();
+           int returnCount = count.getInt(0);
+            Log.d(TAG, "addBook: " + returnCount);
         }
         db.close();
         Log.d(TAG, "addBook: complete");

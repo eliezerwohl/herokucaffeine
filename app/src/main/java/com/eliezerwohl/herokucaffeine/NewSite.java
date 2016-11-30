@@ -21,7 +21,6 @@ public class NewSite extends MainActivity {
     protected void onCreate(Bundle savedInstanceState) {
         final String TAG = "onCreate";
 
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_site);
         final EditText input   = (EditText)findViewById(R.id.inputSite);
@@ -30,14 +29,7 @@ public class NewSite extends MainActivity {
             @Override
             public void onClick(View view) {
                 String toSave = input.getText().toString();
-//                try {
-//                    FileOutputStream fos = openFileOutput(TEXTFILE, Context.MODE_PRIVATE);
-//                    fos.write(toSave.getBytes());
-//
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-                db.addBook("testSite.com");
+                db.addBook(toSave);
             }
         });
 
