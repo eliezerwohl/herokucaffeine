@@ -71,7 +71,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
         Log.d(TAG, "addBook: complete");
     }
 
-    // Getting All Contacts
+    // Getting All
     public List<Site> getAllSites() {
         Log.d(TAG, "getAllSites: start");
         List<Site> sitetList = new ArrayList<Site>();

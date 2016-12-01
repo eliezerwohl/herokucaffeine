@@ -6,12 +6,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import static android.os.Build.VERSION_CODES.N;
+
 public class MainActivity extends AppCompatActivity {
     public static MySQLiteHelper db = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         db = new MySQLiteHelper(this);
 
         setContentView(R.layout.activity_main);
@@ -20,7 +24,9 @@ public class MainActivity extends AppCompatActivity {
         viewAll.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
 
-              db.getAllSites();
+                Intent myIntent = new Intent(view.getContext(), DisplaySites.class);
+                startActivityForResult(myIntent, 0);
+//              db.getAllSites();
             }
         });
 
@@ -30,5 +36,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(myIntent, 0);
             }
         });
+    }
+    public void displaySites(View view){
+        startActivity(new Intent(this, DisplaySites.class));
     }
 }
