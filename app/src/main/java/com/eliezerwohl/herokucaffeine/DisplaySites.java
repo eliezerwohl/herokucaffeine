@@ -15,9 +15,7 @@ public class DisplaySites extends MainActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_sites);
         ListView lv = (ListView) findViewById(R.id.listView);
-         List testList = db.getAllSites();
-
-
+        List testList = db.getAllSites();
         ExtraAdapter adapter = new ExtraAdapter(this, R.layout.displayrow, testList);
         lv.setAdapter(adapter);
 
