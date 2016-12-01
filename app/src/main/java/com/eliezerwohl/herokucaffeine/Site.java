@@ -1,12 +1,10 @@
 package com.eliezerwohl.herokucaffeine;
 
-import static android.R.attr.id;
-
 /**
  * Created by Elie on 11/30/2016.
  */
 
-public class Table {
+public class Site {
     private int id;
     private String site;
 
