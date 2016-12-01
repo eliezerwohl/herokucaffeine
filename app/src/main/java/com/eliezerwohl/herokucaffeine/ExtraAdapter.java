@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.List;
@@ -27,11 +28,13 @@ public class ExtraAdapter extends ArrayAdapter<Site> {
         View customView = laterFlater.inflate(R.layout.displayrow, parent, false);
         TextView buckyText = (TextView) customView.findViewById(R.id.textBox);
         TextView siteText = (TextView) customView.findViewById(R.id.siteText);
+        Button deleteButton = (Button) customView.findViewById(R.id.deleteButton);
         Site item = getItem(position);
         int id = item.getId();
         String site = item.getSite();
         buckyText.setText(Integer.toString(id));
         siteText.setText(site);
+        deleteButton.setTag("this is the id: " + id);
         return customView;
     }
 }

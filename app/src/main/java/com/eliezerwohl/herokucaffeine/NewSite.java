@@ -11,6 +11,8 @@ import android.widget.EditText;
 
 public class NewSite extends MainActivity {
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         final String TAG = "onCreate";
@@ -27,6 +29,8 @@ public class NewSite extends MainActivity {
                 input.setText("");
             }
         });
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
