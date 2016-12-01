@@ -10,6 +10,7 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.R.attr.enabled;
 import static android.content.ContentValues.TAG;
 
 /**
@@ -28,7 +29,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
         // SQL statement to create book table
         String CREATE_SITE_TABLE = "CREATE TABLE site ( " +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "site TEXT)";
+                "site TEXT, enabled INTEGER DEFAULT 1)";
 
         // create books table
         db.execSQL(CREATE_SITE_TABLE);
@@ -48,7 +49,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
         SQLiteDatabase db = this.getWritableDatabase();
         // 2. create ContentValues to add key "column"/value
         ContentValues values = new ContentValues();
-//        values.put("site", table.getSite()); // get title
+        values.put("enabled", 1); // get title
         values.put("site", string); // get title
 
         // 3. insert
@@ -86,6 +87,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
                 Site site = new Site();
                 site.setId(Integer.parseInt(cursor.getString(0)));
                 site.setSite(cursor.getString(1));
+                site.setEnabled(Integer.parseInt(cursor.getString(2)));
                 // Adding contact to list
                 sitetList.add(site);
                 Log.d(TAG, "getAllSites: " + site.getSite() + site.getId());
