@@ -7,6 +7,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static android.content.ContentValues.TAG;
 
 /**
@@ -40,7 +43,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
         this.onCreate(db);
     }
 
-    public void addBook(String string){
+    public void addSite(String string){
         // 1. get reference to writable DB
         SQLiteDatabase db = this.getWritableDatabase();
         // 2. create ContentValues to add key "column"/value
@@ -55,6 +58,9 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
 
         // 4. close
        String query =  "SELECT COUNT(*) FROM SITE";
+        String other = "DESCRIBE SITE";
+//        Cursor other2 = db.rawQuery(other, null);
+//        Log.d(TAG, "addBook: "  + other2);
         Cursor count = db.rawQuery(query, null);
         if (count.getCount() > 0 ){
             count.moveToFirst();
@@ -64,4 +70,30 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
         db.close();
         Log.d(TAG, "addBook: complete");
     }
+
+    // Getting All Contacts
+    public List<Site> getAllSites() {
+        Log.d(TAG, "getAllSites: start");
+        List<Site> sitetList = new ArrayList<Site>();
+        // Select All Query
+        String selectQuery = "SELECT  * FROM SITE";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                Site site = new Site();
+                site.setId(Integer.parseInt(cursor.getString(0)));
+                site.setSite(cursor.getString(1));
+                // Adding contact to list
+                sitetList.add(site);
+                Log.d(TAG, "getAllSites: " + site.getSite() + site.getId());
+            } while (cursor.moveToNext());
+        }
+        Log.d(TAG, "getAllSites: ends");
+        return sitetList;
+
+    }
+
 }

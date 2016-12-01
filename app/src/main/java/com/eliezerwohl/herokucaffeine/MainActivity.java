@@ -9,8 +9,6 @@ import android.widget.Button;
 public class MainActivity extends AppCompatActivity {
     public static MySQLiteHelper db = null;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,6 +16,14 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
         Button next = (Button) findViewById(R.id.createNewSite);
+        Button viewAll = (Button) findViewById(R.id.viewAll);
+        viewAll.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+
+              db.getAllSites();
+            }
+        });
+
         next.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 Intent myIntent = new Intent(view.getContext(), NewSite.class);

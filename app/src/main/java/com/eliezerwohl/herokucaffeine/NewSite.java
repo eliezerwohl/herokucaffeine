@@ -1,21 +1,15 @@
 package com.eliezerwohl.herokucaffeine;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import java.io.FileOutputStream;
-
 
 public class NewSite extends MainActivity {
-    public static final String TEXTFILE ="SAVED.txt";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,12 +23,10 @@ public class NewSite extends MainActivity {
             @Override
             public void onClick(View view) {
                 String toSave = input.getText().toString();
-                db.addBook(toSave);
+                db.addSite(toSave);
+                input.setText("");
             }
         });
-
-
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
