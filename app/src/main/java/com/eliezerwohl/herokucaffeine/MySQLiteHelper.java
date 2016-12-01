@@ -98,6 +98,16 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
 
     }
     public void  updateEnable(int status, int id) {
+        Log.d(TAG, "updateEnable: start");
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("enabled", status);
+        String other ="UPDATE SITE SET enabled = '" + status +"' where id= " + id + ";";
+        db.execSQL(other);
+        // updating row
+//        return db.update("SITE", values, id + " = ?",
+//                new String[] { String.valueOf(contact.getID()) });
 
     }
 

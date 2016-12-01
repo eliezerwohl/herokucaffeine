@@ -11,6 +11,8 @@ import android.widget.ListView;
 
 import java.util.List;
 
+import static android.R.attr.id;
+
 public class DisplaySites extends MainActivity {
 String TAG="DisplaySites";
     @Override
@@ -27,18 +29,20 @@ String TAG="DisplaySites";
     public void enableClick(View view){
         Button b = (Button)view;
         String buttonText = b.getText().toString();
+        String tag = b.getTag().toString();
+        int id = Integer.parseInt(tag);
         if (buttonText.equals("enable")){
             Log.d(TAG, "enableClick: time to disable");
             b.setText("disable");
-            String tag = b.getTag().toString();
-            int id = Integer.parseInt(tag);
 
+            Log.d(TAG, "enableClick: " + id);
             db.updateEnable(0, id);
         }
         else{
             Log.d(TAG, "enableClick: time to enable");
             b.setText("enable");
-            db.updateEnable(1);
+            db.updateEnable(1, id);
+            Log.d(TAG, "enableClick: " + id);
 
         }
         Log.d(TAG, "testClick: " + view.getTag());
