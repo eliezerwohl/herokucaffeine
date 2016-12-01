@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -23,7 +24,23 @@ String TAG="DisplaySites";
 
 
     }
-    public void testClick(View view){
+    public void enableClick(View view){
+        Button b = (Button)view;
+        String buttonText = b.getText().toString();
+        if (buttonText.equals("enable")){
+            Log.d(TAG, "enableClick: time to disable");
+            b.setText("disable");
+            String tag = b.getTag().toString();
+            int id = Integer.parseInt(tag);
+
+            db.updateEnable(0, id);
+        }
+        else{
+            Log.d(TAG, "enableClick: time to enable");
+            b.setText("enable");
+            db.updateEnable(1);
+
+        }
         Log.d(TAG, "testClick: " + view.getTag());
     }
 }

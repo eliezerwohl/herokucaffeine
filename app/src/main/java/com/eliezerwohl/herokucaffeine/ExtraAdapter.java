@@ -38,14 +38,14 @@ public class ExtraAdapter extends ArrayAdapter<Site> {
 //        Log.d(TAG, "getView: " + Integer.valueOf(dk));
         String site = item.getSite();
         if (enabledStatus == 0){
-            enableButton.setText("Disable");
+            enableButton.setText("disable");
         }
         else{
-            enableButton.setText("Enable");
+            enableButton.setText("enable");
         }
 //        buckyText.setText(Integer.toString(id));
         siteText.setText(site);
-//        deleteButton.setTag("this is the id: " + id);
+        enableButton.setTag(id);
         return customView;
     }
 }

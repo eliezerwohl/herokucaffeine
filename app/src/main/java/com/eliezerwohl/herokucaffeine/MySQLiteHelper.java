@@ -97,5 +97,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
         return sitetList;
 
     }
+    public void  updateEnable(int status, int id) {
+
+    }
 
 }
