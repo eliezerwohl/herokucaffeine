@@ -20,6 +20,8 @@
             android:label="@string/title_activity_new_site"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+        <activity android:name=".DisplaySites">
+        </activity>
     </application>
 
 </manifest>
