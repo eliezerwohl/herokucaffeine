@@ -5,21 +5,6 @@
                                              android:layout_width="match_parent"
                                              android:layout_height="100dp">
 
-    <TextView
-        android:text="this is where the id should go"
-        android:layout_width="139dp"
-        android:layout_height="67dp"
-        android:id="@+id/textBox"
-        tools:layout_constraintTop_creator="1"
-        tools:layout_constraintBottom_creator="1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_constraintLeft_creator="1"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginStart="232dp"
-        android:layout_marginLeft="232dp"
-        app:layout_constraintVertical_bias="0.33"/>
-
     <Button
         android:text="Button"
         android:onClick="testClick"
@@ -28,20 +13,35 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.42"
-        android:id="@+id/deleteButton"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"/>
+        app:layout_constraintVertical_bias="0.36"
+        android:id="@+id/enableButton"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        />
 
     <TextView
         android:text="TextView"
-        android:layout_width="113dp"
-        android:layout_height="49dp"
+        android:layout_width="208dp"
+        android:layout_height="53dp"
         android:id="@+id/siteText"
+        app:layout_constraintVertical_bias="0.25"
+        app:layout_constraintRight_toLeftOf="@+id/checkBox"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        app:layout_constraintLeft_toRightOf="@+id/deleteButton"
+        app:layout_constraintLeft_toRightOf="@+id/enableButton"
         android:layout_marginLeft="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="@+id/enableButton"
+        app:layout_constraintTop_toTopOf="@+id/enableButton"/>
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/checkBox"
+        app:layout_constraintBottom_toBottomOf="@+id/siteText"
+        app:layout_constraintTop_toTopOf="@+id/siteText"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="16dp"/>
 
 </android.support.constraint.ConstraintLayout>

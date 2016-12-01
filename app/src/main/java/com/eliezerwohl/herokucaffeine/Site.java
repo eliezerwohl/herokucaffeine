@@ -7,6 +7,15 @@ package com.eliezerwohl.herokucaffeine;
 public class Site {
     private int id;
     private String site;
+    private int enabled;
+
+    public int getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(int enabled) {
+        this.enabled = enabled;
+    }
 
     public int getId() {
         return id;
