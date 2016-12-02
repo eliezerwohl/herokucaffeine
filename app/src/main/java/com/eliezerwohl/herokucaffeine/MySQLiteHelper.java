@@ -81,19 +81,26 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
         String selectQuery = "SELECT  * FROM SITE";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.getCount() == 0){
 
-        // looping through all rows and adding to list
-        if (cursor.moveToFirst()) {
-            do {
-                Site site = new Site();
-                site.setId(Integer.parseInt(cursor.getString(0)));
-                site.setSite(cursor.getString(1));
-                site.setEnabled(Integer.parseInt(cursor.getString(3)));
-                site.setUrl(cursor.getString(2));
-                // Adding contact to list
-                sitetList.add(site);
-                Log.d(TAG, "getAllSites: " + site.getSite() + site.getId());
-            } while (cursor.moveToNext());
+        }
+        else {
+
+
+            // looping through all rows and adding to list
+            //if db is empty an error will occur here
+            if (cursor.moveToFirst()) {
+                do {
+                    Site site = new Site();
+                    site.setId(Integer.parseInt(cursor.getString(0)));
+                    site.setSite(cursor.getString(1));
+                    site.setEnabled(Integer.parseInt(cursor.getString(3)));
+                    site.setUrl(cursor.getString(2));
+                    // Adding contact to list
+                    sitetList.add(site);
+                    Log.d(TAG, "getAllSites: " + site.getSite() + site.getId());
+                } while (cursor.moveToNext());
+            }
         }
         Log.d(TAG, "getAllSites: ends");
         return sitetList;
