@@ -35,6 +35,7 @@ public class ExtraAdapter extends ArrayAdapter<Site> {
         Site item = getItem(position);
         int id = item.getId();
        int enabledStatus = item.getEnabled();
+        Log.d(TAG, "getView URL: " + item.getUrl());
 //        Log.d(TAG, "getView: " + Integer.valueOf(dk));
         String site = item.getSite();
         if (enabledStatus == 1){

@@ -8,6 +8,15 @@ public class Site {
     private int id;
     private String site;
     private int enabled;
+    private String url;
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
     public int getEnabled() {
         return enabled;
