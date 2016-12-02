@@ -8,10 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-
 public class NewSite extends MainActivity {
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,12 +17,15 @@ public class NewSite extends MainActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_site);
         final EditText input   = (EditText)findViewById(R.id.inputSite);
+        final EditText urlInput = (EditText) findViewById(R.id.siteUrl);
         Button save = (Button) findViewById(R.id.save);
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String url = urlInput.getText().toString();
                 String toSave = input.getText().toString();
-                db.addSite(toSave);
+                db.addSite(toSave, url);
+                urlInput.setText("");
                 input.setText("");
             }
         });

@@ -35,17 +35,18 @@ public class ExtraAdapter extends ArrayAdapter<Site> {
         Site item = getItem(position);
         int id = item.getId();
        int enabledStatus = item.getEnabled();
+        Log.d(TAG, "getView URL: " + item.getUrl());
 //        Log.d(TAG, "getView: " + Integer.valueOf(dk));
         String site = item.getSite();
-        if (enabledStatus == 0){
-            enableButton.setText("Disable");
+        if (enabledStatus == 1){
+            enableButton.setText("enable");
         }
         else{
-            enableButton.setText("Enable");
+            enableButton.setText("disable");
         }
 //        buckyText.setText(Integer.toString(id));
         siteText.setText(site);
-//        deleteButton.setTag("this is the id: " + id);
+        enableButton.setTag(id);
         return customView;
     }
 }

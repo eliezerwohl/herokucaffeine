@@ -31,8 +31,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/save"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="328dp"
         app:layout_constraintTop_toBottomOf="@+id/inputSite"
         app:layout_constraintRight_toRightOf="@+id/inputSite"
-        app:layout_constraintLeft_toLeftOf="@+id/inputSite"/>
+        app:layout_constraintLeft_toLeftOf="@+id/inputSite"
+        app:layout_constraintHorizontal_bias="0.54"/>
+
+    <EditText
+        android:layout_width="236dp"
+        android:layout_height="49dp"
+        android:inputType="textPersonName"
+        android:text="Name"
+        android:ems="10"
+        android:id="@+id/siteUrl"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintHorizontal_bias="0.41"
+        app:layout_constraintBottom_toTopOf="@+id/save"
+        android:layout_marginBottom="200dp"/>
 </android.support.constraint.ConstraintLayout>

@@ -26,10 +26,10 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
     }
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // SQL statement to create book table
+        // SQL statement to create table
         String CREATE_SITE_TABLE = "CREATE TABLE site ( " +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "site TEXT, enabled INTEGER DEFAULT 1)";
+                "site TEXT, url TEXT, enabled INTEGER DEFAULT 1)";
 
         // create books table
         db.execSQL(CREATE_SITE_TABLE);
@@ -44,13 +44,14 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
         this.onCreate(db);
     }
 
-    public void addSite(String string){
+    public void addSite(String string, String url){
         // 1. get reference to writable DB
         SQLiteDatabase db = this.getWritableDatabase();
         // 2. create ContentValues to add key "column"/value
         ContentValues values = new ContentValues();
         values.put("enabled", 1); // get title
         values.put("site", string); // get title
+        values.put("url", url);
 
         // 3. insert
         db.insert("site", // table
@@ -87,7 +88,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
                 Site site = new Site();
                 site.setId(Integer.parseInt(cursor.getString(0)));
                 site.setSite(cursor.getString(1));
-                site.setEnabled(Integer.parseInt(cursor.getString(2)));
+                site.setEnabled(Integer.parseInt(cursor.getString(3)));
+                site.setUrl(cursor.getString(2));
                 // Adding contact to list
                 sitetList.add(site);
                 Log.d(TAG, "getAllSites: " + site.getSite() + site.getId());
@@ -95,6 +97,19 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
         }
         Log.d(TAG, "getAllSites: ends");
         return sitetList;
+
+    }
+    public void  updateEnable(int status, int id) {
+        Log.d(TAG, "updateEnable: start");
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("enabled", status);
+        String other ="UPDATE SITE SET enabled = '" + status +"' where id= " + id + ";";
+        db.execSQL(other);
+        // updating row
+//        return db.update("SITE", values, id + " = ?",
+//                new String[] { String.valueOf(contact.getID()) });
 
     }
 
