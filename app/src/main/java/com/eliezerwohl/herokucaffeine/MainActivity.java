@@ -13,24 +13,20 @@ import java.util.ArrayList;
 import static android.os.Build.VERSION_CODES.N;
 
 public class MainActivity extends AppCompatActivity {
-    public static MySQLiteHelper db = null;
+    public static MySQLiteHelper db;
     private String[] theArray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
         db = new MySQLiteHelper(this);
 
         setContentView(R.layout.activity_main);
         WebHit webhit = new WebHit();
-        ArrayList<String> passing = new ArrayList<String>();
-       passing.add("he");
-        passing.add("llo");
-        passing.add("Juicy");
+        MySQLiteHelper mySQLiteHelper = new MySQLiteHelper(this);
 
-        webhit.execute(passing);
+
+        webhit.execute(mySQLiteHelper.getUrl());
         Button next = (Button) findViewById(R.id.createNewSite);
         Button viewAll = (Button) findViewById(R.id.viewAll);
         viewAll.setOnClickListener(new View.OnClickListener() {

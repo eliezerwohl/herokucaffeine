@@ -12,8 +12,9 @@ import android.widget.ListView;
 import java.util.List;
 
 import static android.R.attr.id;
+import static com.eliezerwohl.herokucaffeine.MainActivity.db;
 
-public class DisplaySites extends MainActivity {
+public class DisplaySites extends AppCompatActivity {
 String TAG="DisplaySites";
     @Override
        protected void onCreate(Bundle savedInstanceState) {
@@ -23,8 +24,6 @@ String TAG="DisplaySites";
         List testList = db.getAllSites();
         ExtraAdapter adapter = new ExtraAdapter(this, R.layout.displayrow, testList);
         lv.setAdapter(adapter);
-
-
     }
     public void enableClick(View view){
         Button b = (Button)view;

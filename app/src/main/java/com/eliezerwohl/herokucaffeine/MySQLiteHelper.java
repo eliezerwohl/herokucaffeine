@@ -12,6 +12,8 @@ import java.util.List;
 
 import static android.R.attr.enabled;
 import static android.content.ContentValues.TAG;
+import static android.icu.text.MessagePattern.ArgType.SELECT;
+import static com.eliezerwohl.herokucaffeine.MainActivity.db;
 
 /**
  * Created by Elie on 11/30/2016.
@@ -20,6 +22,7 @@ import static android.content.ContentValues.TAG;
 public class MySQLiteHelper extends SQLiteOpenHelper{
     private static final int dbVersion =1;
     private static final String dbName = "siteDb";
+
 
     public MySQLiteHelper(Context context){
         super(context, dbName, null, dbVersion);
@@ -37,11 +40,11 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // Drop older books table if existed
-        db.execSQL("DROP TABLE IF EXISTS books");
-
-        // create fresh books table
-        this.onCreate(db);
+//        // Drop older books table if existed
+//        db.execSQL("DROP TABLE IF EXISTS books");
+//
+//        // create fresh books table
+//        this.onCreate(db);
     }
 
     public void addSite(String string, String url){
@@ -75,6 +78,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
 
     // Getting All
     public List<Site> getAllSites() {
+
         Log.d(TAG, "getAllSites: start");
         List<Site> sitetList = new ArrayList<Site>();
         // Select All Query
@@ -105,6 +109,25 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
         Log.d(TAG, "getAllSites: ends");
         return sitetList;
 
+    }
+    public ArrayList<String> getUrl(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ArrayList<String> urlList = new ArrayList<>();
+        urlList.add("hello");
+        urlList.add("goodbye");
+//        SELECT owner FROM pet;
+
+        String raw = "SELECT URL FROM SITE";
+        Cursor cursor = db.rawQuery(raw, null);
+        if (cursor.moveToFirst()) {
+            do {
+                urlList.add(cursor.getString(0));
+                Log.d(TAG, "getAllSites: ");
+            } while (cursor.moveToNext());
+        }
+
+
+        return urlList;
     }
     public void  updateEnable(int status, int id) {
         Log.d(TAG, "updateEnable: start");

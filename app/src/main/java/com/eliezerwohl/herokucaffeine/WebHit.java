@@ -19,9 +19,9 @@ public class WebHit extends AsyncTask<ArrayList<String>, Void,  String>{
     protected String doInBackground(ArrayList<String>... passing) {
         ArrayList<String> passed = passing[0];
         Log.d(TAG, "doInBackground: "  + passed.size() );
-//      for (int i = 0; i < arrays.length; i++){
-//            Log.d(TAG, "doInBackground: looping " + i);
-//      }
+      for (int i = 0; i < passed.size(); i++){
+            Log.d(TAG, "doInBackground: looping " + passed.get(i).toString());
+      }
         return null;
     }
 
