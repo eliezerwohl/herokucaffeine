@@ -20,35 +20,34 @@ import static android.content.ContentValues.TAG;
 
 public class WebHit extends AsyncTask<ArrayList<String>, Void,  String>{
 
-    public void test(){
+    public void connectToSite(String urlString){
+        Log.d(TAG, "connectToSite: starts");
         HttpURLConnection urlConnection = null;
         try{
             Log.d(TAG, "test: starting test");
-
-           URL url = new URL("https://kingofdice.herokuapp.com");
+           URL url = new URL("https://peaceful-tor-5987.herokuapp.com");
             urlConnection = (HttpURLConnection) url.openConnection();
             InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-
+            urlConnection.disconnect();
         }
         catch (MalformedURLException e){
             e.printStackTrace();
         }catch (IOException e){
             e.printStackTrace();
         }finally {
-            Log.d(TAG, "test: disconnnect");
-            urlConnection.disconnect();
+
         }
-
-
-
     }
 
     @Override
     protected String doInBackground(ArrayList<String>... passing) {
-        test();
+        
         ArrayList<String> passed = passing[0];
         Log.d(TAG, "doInBackground: "  + passed.size() );
       for (int i = 0; i < passed.size(); i++){
+          String tempString = passed.get(i);
+//          String urlString = tempString.toString();
+          connectToSite(tempString);
             Log.d(TAG, "doInBackground: looping " + passed.get(i).toString());
       }
         return null;
