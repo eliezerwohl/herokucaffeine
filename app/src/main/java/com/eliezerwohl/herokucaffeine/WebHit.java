@@ -4,6 +4,12 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
 import static android.content.ContentValues.TAG;
@@ -14,9 +20,32 @@ import static android.content.ContentValues.TAG;
 
 public class WebHit extends AsyncTask<ArrayList<String>, Void,  String>{
 
+    public void test(){
+        HttpURLConnection urlConnection = null;
+        try{
+            Log.d(TAG, "test: starting test");
+
+           URL url = new URL("https://kingofdice.herokuapp.com");
+            urlConnection = (HttpURLConnection) url.openConnection();
+            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+
+        }
+        catch (MalformedURLException e){
+            e.printStackTrace();
+        }catch (IOException e){
+            e.printStackTrace();
+        }finally {
+            Log.d(TAG, "test: disconnnect");
+            urlConnection.disconnect();
+        }
+
+
+
+    }
 
     @Override
     protected String doInBackground(ArrayList<String>... passing) {
+        test();
         ArrayList<String> passed = passing[0];
         Log.d(TAG, "doInBackground: "  + passed.size() );
       for (int i = 0; i < passed.size(); i++){
@@ -27,6 +56,7 @@ public class WebHit extends AsyncTask<ArrayList<String>, Void,  String>{
 
     @Override
     protected void onPostExecute(String s) {
+
         super.onPostExecute(s);
     }
 
