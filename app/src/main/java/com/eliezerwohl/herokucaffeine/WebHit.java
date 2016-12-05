@@ -21,11 +21,12 @@ import static android.content.ContentValues.TAG;
 public class WebHit extends AsyncTask<ArrayList<String>, Void,  String>{
 
     public void connectToSite(String urlString){
-        Log.d(TAG, "connectToSite: starts");
+
+
         HttpURLConnection urlConnection = null;
         try{
             Log.d(TAG, "test: starting test");
-           URL url = new URL("https://peaceful-tor-5987.herokuapp.com");
+           URL url = new URL(urlString);
             urlConnection = (HttpURLConnection) url.openConnection();
             //maybe get rid of this next line?  is needed?
             InputStream in = new BufferedInputStream(urlConnection.getInputStream());
