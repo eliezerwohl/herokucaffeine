@@ -27,6 +27,7 @@ public class WebHit extends AsyncTask<ArrayList<String>, Void,  String>{
             Log.d(TAG, "test: starting test");
            URL url = new URL("https://peaceful-tor-5987.herokuapp.com");
             urlConnection = (HttpURLConnection) url.openConnection();
+            //maybe get rid of this next line?  is needed?
             InputStream in = new BufferedInputStream(urlConnection.getInputStream());
             urlConnection.disconnect();
         }
@@ -41,7 +42,6 @@ public class WebHit extends AsyncTask<ArrayList<String>, Void,  String>{
 
     @Override
     protected String doInBackground(ArrayList<String>... passing) {
-        
         ArrayList<String> passed = passing[0];
         Log.d(TAG, "doInBackground: "  + passed.size() );
       for (int i = 0; i < passed.size(); i++){

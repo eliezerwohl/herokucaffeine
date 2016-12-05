@@ -25,8 +25,8 @@ public class MainActivity extends AppCompatActivity {
         WebHit webhit = new WebHit();
         MySQLiteHelper mySQLiteHelper = new MySQLiteHelper(this);
 
-
-        webhit.execute(mySQLiteHelper.getUrl());
+        //error if db is empty
+//        webhit.execute(mySQLiteHelper.getUrl());
         Button next = (Button) findViewById(R.id.createNewSite);
         Button viewAll = (Button) findViewById(R.id.viewAll);
         viewAll.setOnClickListener(new View.OnClickListener() {
