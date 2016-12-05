@@ -114,7 +114,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
         ArrayList<String> urlList = new ArrayList<>();
       //        SELECT owner FROM pet;
 
-        String raw = "SELECT URL FROM SITE";
+        String raw = "SELECT URL FROM SITE WHERE enabled = 1";
         Cursor cursor = db.rawQuery(raw, null);
         if (cursor.moveToFirst()) {
             do {
