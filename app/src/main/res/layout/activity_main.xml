@@ -46,4 +46,21 @@
         android:layout_marginTop="64dp"
         app:layout_constraintTop_toBottomOf="@+id/createNewSite"/>
 
+    <Button
+        android:text="activate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/activate"
+        tools:layout_editor_absoluteY="216dp"
+        tools:layout_editor_absoluteX="148dp"/>
+
+    <Button
+        android:text="stop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/stop"
+        android:layout_marginTop="48dp"
+        app:layout_constraintTop_toBottomOf="@+id/activate"
+        app:layout_constraintLeft_toLeftOf="@+id/activate"/>
+
 </android.support.constraint.ConstraintLayout>

@@ -24,10 +24,10 @@ public class SampleBootReceiver extends BroadcastReceiver {
             webhit.execute(mySQLiteHelper.getUrl());
         }
         else if ((intent.getAction() != null) && intent.getAction().equals("android.intent.action.BOOT_COMPLETED")) {
-            Log.d(TAG, "onReceive: boot");
-            MySQLiteHelper mySQLiteHelper = new MySQLiteHelper(context);
-            WebHit webhit = new WebHit();
-            webhit.execute(mySQLiteHelper.getUrl());
+            Intent i = new Intent(context, MainActivity.class);  
+            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(i);
+            Log.d(TAG, "onReceive: booted activity");
         }
         else{
             Log.d(TAG, "onReceive: other");
