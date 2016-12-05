@@ -36,7 +36,6 @@ public class ExtraAdapter extends ArrayAdapter<Site> {
         int id = item.getId();
        int enabledStatus = item.getEnabled();
         Log.d(TAG, "getView URL: " + item.getUrl());
-//        Log.d(TAG, "getView: " + Integer.valueOf(dk));
         String site = item.getSite();
         if (enabledStatus == 1){
             enableButton.setText("enable");
@@ -44,7 +43,6 @@ public class ExtraAdapter extends ArrayAdapter<Site> {
         else{
             enableButton.setText("disable");
         }
-//        buckyText.setText(Integer.toString(id));
         siteText.setText(site);
         enableButton.setTag(id);
         return customView;

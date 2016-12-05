@@ -89,8 +89,6 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
 
         }
         else {
-
-
             // looping through all rows and adding to list
             //if db is empty an error will occur here
             if (cursor.moveToFirst()) {
@@ -102,45 +100,41 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
                     site.setUrl(cursor.getString(2));
                     // Adding contact to list
                     sitetList.add(site);
-                    Log.d(TAG, "getAllSites: " + site.getSite() + site.getId());
+//
                 } while (cursor.moveToNext());
             }
         }
         Log.d(TAG, "getAllSites: ends");
+        db.close();
         return sitetList;
 
     }
     public ArrayList<String> getUrl(){
         SQLiteDatabase db = this.getWritableDatabase();
         ArrayList<String> urlList = new ArrayList<>();
-        urlList.add("hello");
-        urlList.add("goodbye");
-//        SELECT owner FROM pet;
+      //        SELECT owner FROM pet;
 
         String raw = "SELECT URL FROM SITE";
         Cursor cursor = db.rawQuery(raw, null);
         if (cursor.moveToFirst()) {
             do {
                 urlList.add(cursor.getString(0));
-                Log.d(TAG, "getAllSites: ");
             } while (cursor.moveToNext());
         }
-
 
         return urlList;
     }
     public void  updateEnable(int status, int id) {
         Log.d(TAG, "updateEnable: start");
-
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("enabled", status);
         String other ="UPDATE SITE SET enabled = '" + status +"' where id= " + id + ";";
         db.execSQL(other);
+        db.close();
         // updating row
 //        return db.update("SITE", values, id + " = ?",
 //                new String[] { String.valueOf(contact.getID()) });
 
     }
-
 }
