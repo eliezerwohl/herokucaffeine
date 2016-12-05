@@ -1,6 +1,8 @@
 package com.eliezerwohl.herokucaffeine;
 
 import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.SystemClock;
@@ -9,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -18,6 +21,7 @@ import static android.os.Build.VERSION_CODES.N;
 public class MainActivity extends AppCompatActivity {
     public static MySQLiteHelper db;
     private String[] theArray;
+    private PendingIntent pendingIntent;
 
 
 
@@ -29,6 +33,14 @@ public class MainActivity extends AppCompatActivity {
         WebHit webhit = new WebHit();
         MySQLiteHelper mySQLiteHelper = new MySQLiteHelper(this);
         Log.d("Steve", "onCreate: Steve");
+        Intent alarmIntent = new Intent(this, SampleBootReceiver.class);
+//        pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, 0);
+        AlarmManager alarmManager=(AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(this, SampleBootReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,System.currentTimeMillis(),600,
+                pendingIntent);
+
 
         //error if db is empty
 
@@ -53,5 +65,12 @@ public class MainActivity extends AppCompatActivity {
     }
     public void displaySites(View view){
         startActivity(new Intent(this, DisplaySites.class));
+    }
+    public void start() {
+        AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        int interval = 8000;
+
+        manager.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), interval, pendingIntent);
+        Toast.makeText(this, "Alarm Set", Toast.LENGTH_SHORT).show();
     }
 }

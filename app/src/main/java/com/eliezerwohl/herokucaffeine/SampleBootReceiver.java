@@ -16,8 +16,18 @@ public class SampleBootReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (intent.getAction().equals("android.intent.action.BOOT_COMPLETED")) {
-
+        Log.d(TAG, "onReceive: gett something");
+        if (intent.getAction() == null){
+            Log.d(TAG, "onReceive: null");
+            MySQLiteHelper mySQLiteHelper = new MySQLiteHelper(context);
+            WebHit webhit = new WebHit();
+            webhit.execute(mySQLiteHelper.getUrl());
+        }
+        else if ((intent.getAction() != null) && intent.getAction().equals("android.intent.action.BOOT_COMPLETED")) {
+            Log.d(TAG, "onReceive: boot");
+        }
+        else{
+            Log.d(TAG, "onReceive: other");
         }
     }
 
