@@ -32,9 +32,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         WebHit webhit = new WebHit();
         MySQLiteHelper mySQLiteHelper = new MySQLiteHelper(this);
-        Log.d("Steve", "onCreate: Steve");
         Intent alarmIntent = new Intent(this, SampleBootReceiver.class);
-//        pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, 0);
         AlarmManager alarmManager=(AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, SampleBootReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);

@@ -25,7 +25,7 @@ public class WebHit extends AsyncTask<ArrayList<String>, Void,  String>{
 
         HttpURLConnection urlConnection = null;
         try{
-            Log.d(TAG, "test: starting test");
+            Log.d(TAG, "ConnectToSite: starting url" + urlString);
            URL url = new URL(urlString);
             urlConnection = (HttpURLConnection) url.openConnection();
             //maybe get rid of this next line?  is needed?
@@ -47,7 +47,6 @@ public class WebHit extends AsyncTask<ArrayList<String>, Void,  String>{
         Log.d(TAG, "doInBackground: "  + passed.size() );
       for (int i = 0; i < passed.size(); i++){
           String tempString = passed.get(i);
-//          String urlString = tempString.toString();
           connectToSite(tempString);
             Log.d(TAG, "doInBackground: looping " + passed.get(i).toString());
       }
