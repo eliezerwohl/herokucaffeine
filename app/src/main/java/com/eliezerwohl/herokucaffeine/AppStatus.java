@@ -27,6 +27,5 @@ public class AppStatus {
         this.appStatus = appStatus;
         editor.putString(key, appStatus);
         editor.commit();
-
     }
 }

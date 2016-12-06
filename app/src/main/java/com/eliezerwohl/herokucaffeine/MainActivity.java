@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import static com.eliezerwohl.herokucaffeine.R.id.currentStatusButton;
 import static com.eliezerwohl.herokucaffeine.R.id.stop;
 
 
@@ -23,33 +24,66 @@ public class MainActivity extends AppCompatActivity {
     AlarmManager  alarmManager;
     Intent intent;
     PendingIntent pendingIntent;
-    public void timerStart(){
+    AppStatus appStatus;
+    public String currentStatus;
+
+    public  void timerStart(){
         alarmManager=(AlarmManager) getSystemService(Context.ALARM_SERVICE);
         intent = new Intent(this, SampleBootReceiver.class);
         pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,System.currentTimeMillis(),6000,
                 pendingIntent);
+        Log.d(TAG, "timerStart was: " + appStatus.getAppStatus(this));
+        appStatus.setAppStatus("on", this);
+        Log.d(TAG, "timerStart now is: " + appStatus.getAppStatus(this));
     }
     public void timerStop(){
         Log.d(TAG, "timerStop: STOP");
+//        appStatus.setAppStatus("off", this);
         alarmManager.cancel(pendingIntent);
+   Log.d(TAG, "timerStart was: " + appStatus.getAppStatus(this));
+        appStatus.setAppStatus("off", this);
+        Log.d(TAG, "timerStart now is: " + appStatus.getAppStatus(this));
     }
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         db = new MySQLiteHelper(this);
         setContentView(R.layout.activity_main);
-        AppStatus appStatus = new AppStatus();
-        appStatus.setAppStatus("OH MY GLOB", this);
+        appStatus = new AppStatus();
+        final Button currentStatusButton = (Button) findViewById(R.id.currentStatusButton);
+//        appStatus.setAppStatus("OH MY GLOB", this);
+        if (appStatus.getAppStatus(this).equals("off")){
+            Log.d(TAG, "appStatus: off");
+            currentStatus = "off";
 
-        Log.d(TAG, "onCreate: " + appStatus.getAppStatus(this));
-        Button stop = (Button) findViewById(R.id.stop);
-        stop.setOnClickListener(new View.OnClickListener(){
+
+        }
+        else {
+            Log.d(TAG, "appStatus: on ");
+            currentStatus = "off";
+        }
+        currentStatusButton.setText(currentStatus);
+
+        currentStatusButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
-                timerStop();
+                if (currentStatus.equals("off")){
+
+                    currentStatus = "on";
+                    timerStart();
+                }
+                else{
+
+                    currentStatus = "off";
+                    timerStop();
+                }
+                currentStatusButton.setText(currentStatus);
+
             }
+
         });
         Button activate = (Button) findViewById(R.id.activate);
         activate.setOnClickListener(new View.OnClickListener(){

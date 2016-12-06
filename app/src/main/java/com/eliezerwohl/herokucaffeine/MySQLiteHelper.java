@@ -33,6 +33,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
                 "site TEXT, url TEXT, enabled INTEGER DEFAULT 1)";
         // create books table
         db.execSQL(CREATE_SITE_TABLE);
+        db.close();
     }
 
     @Override
@@ -117,7 +118,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
                 urlList.add(cursor.getString(0));
             } while (cursor.moveToNext());
         }
-
+        db.close();
         return urlList;
     }
     public void  updateEnable(int status, int id) {

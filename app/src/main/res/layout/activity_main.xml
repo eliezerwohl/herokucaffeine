@@ -8,20 +8,8 @@
     android:layout_height="match_parent"
     tools:context="com.eliezerwohl.herokucaffeine.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        tools:layout_constraintTop_creator="1"
-        android:layout_marginTop="16dp"
-        tools:layout_constraintLeft_creator="1"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"/>
-
     <Button
-        android:text="Button"
+        android:text="create new site"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/createNewSite"
@@ -35,32 +23,38 @@
         android:layout_marginLeft="16dp"/>
 
     <Button
-        android:text="Button"
+        android:text="Edit Pref"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/viewAll"
         android:onClick="displaySites"
         app:layout_constraintRight_toRightOf="@+id/createNewSite"
         app:layout_constraintLeft_toLeftOf="@+id/createNewSite"
-        app:layout_constraintHorizontal_bias="1.0"
         android:layout_marginTop="64dp"
         app:layout_constraintTop_toBottomOf="@+id/createNewSite"/>
 
     <Button
-        android:text="activate"
+        android:text="off"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/activate"
-        tools:layout_editor_absoluteY="216dp"
-        tools:layout_editor_absoluteX="148dp"/>
+        android:layout_marginStart="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="24dp"
+        android:id="@+id/currentStatusButton"/>
 
-    <Button
-        android:text="stop"
+    <TextView
+        android:text="current Status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/stop"
-        android:layout_marginTop="48dp"
-        app:layout_constraintTop_toBottomOf="@+id/activate"
-        app:layout_constraintLeft_toLeftOf="@+id/activate"/>
+        android:id="@+id/Status Button"
+        app:layout_constraintRight_toRightOf="@+id/currentStatusButton"
+        app:layout_constraintLeft_toLeftOf="@+id/currentStatusButton"
+        app:layout_constraintBottom_toTopOf="@+id/currentStatusButton"
+        android:layout_marginBottom="8dp"/>
 
 </android.support.constraint.ConstraintLayout>
