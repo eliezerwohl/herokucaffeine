@@ -1,8 +1,11 @@
 package com.eliezerwohl.herokucaffeine;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -15,7 +18,17 @@ import static android.R.attr.id;
 import static com.eliezerwohl.herokucaffeine.MainActivity.db;
 
 public class DisplaySites extends AppCompatActivity {
-String TAG="DisplaySites";
+    @Override
+    public void supportInvalidateOptionsMenu() {
+        super.supportInvalidateOptionsMenu();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+    String TAG="DisplaySites";
     @Override
        protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +37,20 @@ String TAG="DisplaySites";
         List testList = db.getAllSites();
         ExtraAdapter adapter = new ExtraAdapter(this, R.layout.displayrow, testList);
         lv.setAdapter(adapter);
+        
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        String selected;
+       if (id == R.id.deleteButton){
+           Log.d(TAG, "onOptionsItemSelected: delete");
+       }
+        else if (id == R.id.editItem){
+           Log.d(TAG, "onOptionsItemSelected: edit");
+           
+       }
+        return true;
     }
     public void enableClick(View view){
         Button b = (Button)view;
@@ -46,4 +73,5 @@ String TAG="DisplaySites";
         }
         Log.d(TAG, "testClick: " + view.getTag());
     }
+
 }
