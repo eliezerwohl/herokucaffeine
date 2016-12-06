@@ -26,6 +26,7 @@ public class DisplaySites extends AppCompatActivity {
     private RadioButton listRadioButton = null;
     int listIndex = -1;
     public String currentId;
+//    ExtraAdapter adapter;
     public String getCurrentId(){
         return currentId;
     }
@@ -82,6 +83,10 @@ public class DisplaySites extends AppCompatActivity {
                            Log.d(TAG, "onClick: YES");
                            MySQLiteHelper db = new MySQLiteHelper(DisplaySites.this);
                            db.delete(Integer.parseInt(currentId));
+                           ListView lv = (ListView) findViewById(R.id.listView);
+                           List testList = db.getAllSites();
+                           ExtraAdapter adapter = new ExtraAdapter(DisplaySites.this, R.layout.displayrow, testList);
+                           lv.setAdapter(adapter);
                            db.close();
                            dialog.cancel();
                        }
