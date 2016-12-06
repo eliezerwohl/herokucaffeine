@@ -7,17 +7,23 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.RadioButton;
 
 import java.util.List;
 
 import static android.R.attr.id;
+import static android.R.attr.tag;
 import static com.eliezerwohl.herokucaffeine.MainActivity.db;
 
 public class DisplaySites extends AppCompatActivity {
+    private RadioButton listRadioButton = null;
+    int listIndex = -1;
+    String currentId;
     @Override
     public void supportInvalidateOptionsMenu() {
         super.supportInvalidateOptionsMenu();
@@ -37,13 +43,32 @@ public class DisplaySites extends AppCompatActivity {
         List testList = db.getAllSites();
         ExtraAdapter adapter = new ExtraAdapter(this, R.layout.displayrow, testList);
         lv.setAdapter(adapter);
+//        lv.getCheckedItemPosition();
+
         
+    }
+    public void onClickRadioButton(View v){
+        Log.d(TAG, "onClickRadioButton: button click");
+        View vMain = ((View) v.getParent());
+        int newIndex = ((ViewGroup) vMain.getParent()).indexOfChild(vMain);
+        if (listIndex == newIndex) return;
+
+        if (listRadioButton != null) {
+            listRadioButton.setChecked(false);
+        }
+        currentId = v.getTag().toString();
+        Log.d(TAG, "onClickRadioButton: the id is" + currentId);
+        listRadioButton = (RadioButton) v;
+        listIndex = newIndex;
+
+
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         String selected;
-       if (id == R.id.deleteButton){
+       if ((id == R.id.deleteButton) && (currentId != null)){
+           startActivity(new Intent(this, Pop.class));
            Log.d(TAG, "onOptionsItemSelected: delete");
        }
         else if (id == R.id.editItem){
