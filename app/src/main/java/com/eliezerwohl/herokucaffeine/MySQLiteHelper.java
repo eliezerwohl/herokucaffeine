@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.content.ContentValues.TAG;
+import static android.os.FileObserver.DELETE;
+import static com.eliezerwohl.herokucaffeine.MainActivity.db;
 
 
 /**
@@ -25,6 +27,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
     public MySQLiteHelper(Context context){
         super(context, dbName, null, dbVersion);
     }
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         // SQL statement to create table
@@ -120,6 +123,15 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
         }
         db.close();
         return urlList;
+    }
+    public void  delete(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Log.d(TAG, "delete: gonna delete this:" + id);
+        String query ="DELETE FROM site where id =" + id +";";
+        db.execSQL(query);
+        db.close();
+        Log.d(TAG, "delete: completed");
+
     }
     public void  updateEnable(int status, int id) {
         Log.d(TAG, "updateEnable: start");
