@@ -4,19 +4,11 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.nfc.Tag;
-import android.os.AsyncTask;
-import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-
-import static com.eliezerwohl.herokucaffeine.R.id.currentStatusButton;
-import static com.eliezerwohl.herokucaffeine.R.id.stop;
-
 
 public class MainActivity extends AppCompatActivity {
     final String TAG = "main";
@@ -55,12 +47,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         appStatus = new AppStatus();
         final Button currentStatusButton = (Button) findViewById(R.id.currentStatusButton);
-//        appStatus.setAppStatus("OH MY GLOB", this);
         if (appStatus.getAppStatus(this).equals("off")){
             Log.d(TAG, "appStatus: off");
             currentStatus = "off";
-
-
         }
         else {
             Log.d(TAG, "appStatus: on ");
@@ -71,27 +60,25 @@ public class MainActivity extends AppCompatActivity {
         currentStatusButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
                 if (currentStatus.equals("off")){
-
                     currentStatus = "on";
                     timerStart();
                 }
                 else{
-
                     currentStatus = "off";
                     timerStop();
                 }
                 currentStatusButton.setText(currentStatus);
-
-            }
-
-        });
-        Button activate = (Button) findViewById(R.id.activate);
-        activate.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View view) {
-                timerStart();
             }
         });
+
         Button next = (Button) findViewById(R.id.createNewSite);
+        Button jolt = (Button) findViewById(R.id.jolt);
+        jolt.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                WebHit webhit = new WebHit();
+                webhit.execute(db.getUrl());
+            }
+        });
         Button viewAll = (Button) findViewById(R.id.viewAll);
         viewAll.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
