@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import static android.R.attr.button;
+import static android.R.attr.id;
 
 
 /**
@@ -32,8 +34,11 @@ public class ExtraAdapter extends ArrayAdapter<Site> {
 //        TextView buckyText = (TextView) customView.findViewById(R.id.textBox);
         TextView siteText = (TextView) customView.findViewById(R.id.siteText);
         Button enableButton = (Button) customView.findViewById(R.id.enableButton);
+        Button radio = (Button) customView.findViewById(R.id.radioBtn);
+
         Site item = getItem(position);
         int id = item.getId();
+        radio.setTag(id);
        int enabledStatus = item.getEnabled();
         Log.d(TAG, "getView URL: " + item.getUrl());
         String site = item.getSite();
@@ -47,4 +52,5 @@ public class ExtraAdapter extends ArrayAdapter<Site> {
         enableButton.setTag(id);
         return customView;
     }
+
 }
