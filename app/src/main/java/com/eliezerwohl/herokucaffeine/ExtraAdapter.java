@@ -22,6 +22,7 @@ import static android.R.attr.id;
 public class ExtraAdapter extends ArrayAdapter<Site> {
     private static String TAG ="FeedAdapter";
     private List <Site> siteList;
+    private int currentSelected;
 
     public ExtraAdapter(Context context, int resource, List<Site> siteList) {
         super(context, R.layout.displayrow, siteList);
@@ -31,11 +32,9 @@ public class ExtraAdapter extends ArrayAdapter<Site> {
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater laterFlater = LayoutInflater.from(getContext());
         View customView = laterFlater.inflate(R.layout.displayrow, parent, false);
-//        TextView buckyText = (TextView) customView.findViewById(R.id.textBox);
         TextView siteText = (TextView) customView.findViewById(R.id.siteText);
         Button enableButton = (Button) customView.findViewById(R.id.enableButton);
         Button radio = (Button) customView.findViewById(R.id.radioBtn);
-
         Site item = getItem(position);
         int id = item.getId();
         radio.setTag(id);

@@ -17,12 +17,13 @@ import android.widget.RadioButton;
 import java.util.List;
 
 import static android.R.attr.id;
+import static android.R.attr.tag;
 import static com.eliezerwohl.herokucaffeine.MainActivity.db;
 
 public class DisplaySites extends AppCompatActivity {
     private RadioButton listRadioButton = null;
     int listIndex = -1;
-
+    String currentId;
     @Override
     public void supportInvalidateOptionsMenu() {
         super.supportInvalidateOptionsMenu();
@@ -55,8 +56,8 @@ public class DisplaySites extends AppCompatActivity {
         if (listRadioButton != null) {
             listRadioButton.setChecked(false);
         }
-        String tag = v.getTag().toString();
-        Log.d(TAG, "onClickRadioButton: the id is" + tag);
+        currentId = v.getTag().toString();
+        Log.d(TAG, "onClickRadioButton: the id is" + currentId);
         listRadioButton = (RadioButton) v;
         listIndex = newIndex;
 
@@ -66,7 +67,8 @@ public class DisplaySites extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         String selected;
-       if (id == R.id.deleteButton){
+       if ((id == R.id.deleteButton) && (currentId != null)){
+           startActivity(new Intent(this, Pop.class));
            Log.d(TAG, "onOptionsItemSelected: delete");
        }
         else if (id == R.id.editItem){
