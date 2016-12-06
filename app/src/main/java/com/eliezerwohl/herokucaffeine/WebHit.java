@@ -21,14 +21,12 @@ import static android.content.ContentValues.TAG;
 public class WebHit extends AsyncTask<ArrayList<String>, Void,  String>{
 
     public void connectToSite(String urlString){
-
-
         HttpURLConnection urlConnection = null;
         try{
             Log.d(TAG, "ConnectToSite: starting url" + urlString);
            URL url = new URL(urlString);
             urlConnection = (HttpURLConnection) url.openConnection();
-            //maybe get rid of this next line?  is needed?
+            //maybe get rid of this next line?  is needed? yes it is
             InputStream in = new BufferedInputStream(urlConnection.getInputStream());
             urlConnection.disconnect();
         }
@@ -55,7 +53,6 @@ public class WebHit extends AsyncTask<ArrayList<String>, Void,  String>{
 
     @Override
     protected void onPostExecute(String s) {
-
         super.onPostExecute(s);
     }
 

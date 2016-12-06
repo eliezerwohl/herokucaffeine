@@ -10,10 +10,8 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.R.attr.enabled;
 import static android.content.ContentValues.TAG;
-import static android.icu.text.MessagePattern.ArgType.SELECT;
-import static com.eliezerwohl.herokucaffeine.MainActivity.db;
+
 
 /**
  * Created by Elie on 11/30/2016.
@@ -33,7 +31,6 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
         String CREATE_SITE_TABLE = "CREATE TABLE site ( " +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "site TEXT, url TEXT, enabled INTEGER DEFAULT 1)";
-
         // create books table
         db.execSQL(CREATE_SITE_TABLE);
     }
@@ -113,7 +110,6 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
         SQLiteDatabase db = this.getWritableDatabase();
         ArrayList<String> urlList = new ArrayList<>();
       //        SELECT owner FROM pet;
-
         String raw = "SELECT URL FROM SITE WHERE enabled = 1";
         Cursor cursor = db.rawQuery(raw, null);
         if (cursor.moveToFirst()) {
@@ -132,9 +128,5 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
         String other ="UPDATE SITE SET enabled = '" + status +"' where id= " + id + ";";
         db.execSQL(other);
         db.close();
-        // updating row
-//        return db.update("SITE", values, id + " = ?",
-//                new String[] { String.valueOf(contact.getID()) });
-
     }
 }

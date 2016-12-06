@@ -4,6 +4,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.nfc.Tag;
 import android.os.AsyncTask;
 import android.os.SystemClock;
@@ -12,14 +13,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
-import java.net.URL;
-import java.util.ArrayList;
+import static com.eliezerwohl.herokucaffeine.R.id.stop;
 
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.V;
-import static android.os.Build.VERSION_CODES.N;
-import static com.eliezerwohl.herokucaffeine.R.id.activate;
 
 public class MainActivity extends AppCompatActivity {
     final String TAG = "main";
@@ -40,13 +36,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         db = new MySQLiteHelper(this);
         setContentView(R.layout.activity_main);
+        AppStatus appStatus = new AppStatus();
+        appStatus.setAppStatus("OH MY GLOB", this);
 
+        Log.d(TAG, "onCreate: " + appStatus.getAppStatus(this));
         Button stop = (Button) findViewById(R.id.stop);
         stop.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
