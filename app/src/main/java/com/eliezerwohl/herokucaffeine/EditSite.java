@@ -7,10 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-
-import static android.R.id.edit;
 import static com.eliezerwohl.herokucaffeine.MainActivity.db;
-import static com.eliezerwohl.herokucaffeine.R.id.viewAll;
 
 public class EditSite extends AppCompatActivity {
     private String TAG = "Editsite";
@@ -30,7 +27,7 @@ public class EditSite extends AppCompatActivity {
         tempSite = tempSiteObject.getSite();
         tempId = tempSiteObject.getId();
         final EditText editSite = (EditText) findViewById(R.id.editSite);
-       final  EditText editUrl = (EditText) findViewById(R.id.editUrl);
+        final  EditText editUrl = (EditText) findViewById(R.id.editUrl);
         editSite.setText(tempSite);
         editUrl.setText(tempUrl);
         Button saveEdit = (Button) findViewById(R.id.saveEdit) ;
@@ -38,10 +35,10 @@ public class EditSite extends AppCompatActivity {
             public void onClick(View view) {
 
                if(!editUrl.getText().toString().equals(tempUrl)){
-                   db.updateUrl(editUrl.getText().toString(), tempId, "url" );
+                   db.editUpdate(editUrl.getText().toString(), tempId, "url" );
                }
                 if (!editSite.getText().toString().equals(tempSite)) {
-                    db.updateUrl(editSite.getText().toString(), tempId, "site" );
+                    db.editUpdate(editSite.getText().toString(), tempId, "site" );
                 }
                 Intent myIntent = new Intent(EditSite.this, DisplaySites.class);
                 startActivityForResult(myIntent, 0);
