@@ -48,10 +48,11 @@ public class DisplaySites extends AppCompatActivity {
         setContentView(R.layout.activity_display_sites);
         ListView lv = (ListView) findViewById(R.id.listView);
         List testList = db.getAllSites();
-        ExtraAdapter adapter = new ExtraAdapter(this, R.layout.displayrow, testList);
-        lv.setAdapter(adapter);
+        if (testList!=null ){
+            ExtraAdapter adapter = new ExtraAdapter(this, R.layout.displayrow, testList);
+            lv.setAdapter(adapter);
 //        lv.getCheckedItemPosition();
-
+        }
         
     }
     public void onClickRadioButton(View v){
