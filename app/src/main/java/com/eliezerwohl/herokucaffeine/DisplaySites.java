@@ -102,9 +102,12 @@ public class DisplaySites extends AppCompatActivity {
            alert.setTitle("Alert !!!");
            alert.show();
        }
-        else if (id == R.id.editItem){
+        else if ((id == R.id.editItem) && (currentId != null)) {
            Log.d(TAG, "onOptionsItemSelected: edit");
-           
+           AppStatus appStatus = new AppStatus();
+           appStatus.setEditId(currentId, this);
+           Intent myIntent = new Intent(this, EditSite.class);
+           startActivityForResult(myIntent, 0);
        }
         return true;
     }
