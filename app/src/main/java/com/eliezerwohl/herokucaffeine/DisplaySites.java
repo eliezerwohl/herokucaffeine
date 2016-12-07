@@ -1,6 +1,8 @@
 package com.eliezerwohl.herokucaffeine;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,7 +25,11 @@ import static com.eliezerwohl.herokucaffeine.MainActivity.db;
 public class DisplaySites extends AppCompatActivity {
     private RadioButton listRadioButton = null;
     int listIndex = -1;
-    String currentId;
+    public String currentId;
+//    ExtraAdapter adapter;
+    public String getCurrentId(){
+        return currentId;
+    }
     @Override
     public void supportInvalidateOptionsMenu() {
         super.supportInvalidateOptionsMenu();
@@ -68,8 +74,32 @@ public class DisplaySites extends AppCompatActivity {
         int id = item.getItemId();
         String selected;
        if ((id == R.id.deleteButton) && (currentId != null)){
-           startActivity(new Intent(this, Pop.class));
-           Log.d(TAG, "onOptionsItemSelected: delete");
+           AlertDialog.Builder a_builder = new AlertDialog.Builder(this);
+           a_builder.setMessage("Do you want delete this site?")
+                   .setCancelable(false)
+                   .setPositiveButton("Yes",new DialogInterface.OnClickListener() {
+                       @Override
+                       public void onClick(DialogInterface dialog, int which) {
+                           Log.d(TAG, "onClick: YES");
+                           MySQLiteHelper db = new MySQLiteHelper(DisplaySites.this);
+                           db.delete(Integer.parseInt(currentId));
+                           ListView lv = (ListView) findViewById(R.id.listView);
+                           List testList = db.getAllSites();
+                           ExtraAdapter adapter = new ExtraAdapter(DisplaySites.this, R.layout.displayrow, testList);
+                           lv.setAdapter(adapter);
+                           db.close();
+                           dialog.cancel();
+                       }
+                   })
+                   .setNegativeButton("No",new DialogInterface.OnClickListener() {
+                       @Override
+                       public void onClick(DialogInterface dialog, int which) {
+                           dialog.cancel();
+                       }
+                   }) ;
+           AlertDialog alert = a_builder.create();
+           alert.setTitle("Alert !!!");
+           alert.show();
        }
         else if (id == R.id.editItem){
            Log.d(TAG, "onOptionsItemSelected: edit");
