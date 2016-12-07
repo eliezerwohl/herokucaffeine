@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 
@@ -32,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
     }
     public void timerStop(){
         Log.d(TAG, "timerStop: STOP");
-//        appStatus.setAppStatus("off", this);
         if (pendingIntent !=null){
             alarmManager.cancel(pendingIntent);
         }
@@ -41,10 +39,8 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "timerStart now is: " + appStatus.getAppStatus(this));
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         db = new MySQLiteHelper(this);
 
@@ -66,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         currentStatusButton.setText(currentStatus);
-
         currentStatusButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
                 if (currentStatus.equals("off")){
@@ -107,6 +102,5 @@ public class MainActivity extends AppCompatActivity {
     public void displaySites(View view){
         startActivity(new Intent(this, DisplaySites.class));
     }
-
 //    Toast.makeText(this, "Alarm Set", Toast.LENGTH_SHORT).show();
 }

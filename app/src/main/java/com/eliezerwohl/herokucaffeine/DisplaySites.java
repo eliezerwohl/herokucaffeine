@@ -50,16 +50,12 @@ public class DisplaySites extends AppCompatActivity {
         List testList = db.getAllSites();
         ExtraAdapter adapter = new ExtraAdapter(this, R.layout.displayrow, testList);
         lv.setAdapter(adapter);
-//        lv.getCheckedItemPosition();
-
-        
     }
     public void onClickRadioButton(View v){
         Log.d(TAG, "onClickRadioButton: button click");
         View vMain = ((View) v.getParent());
         int newIndex = ((ViewGroup) vMain.getParent()).indexOfChild(vMain);
         if (listIndex == newIndex) return;
-
         if (listRadioButton != null) {
             listRadioButton.setChecked(false);
         }
@@ -72,8 +68,7 @@ public class DisplaySites extends AppCompatActivity {
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        String selected;
+       int id = item.getItemId();
        if ((id == R.id.deleteButton) && (currentId != null)){
            AlertDialog.Builder a_builder = new AlertDialog.Builder(this);
            a_builder.setMessage("Do you want delete this site?")
@@ -119,7 +114,6 @@ public class DisplaySites extends AppCompatActivity {
         if (buttonText.equals("enable")){
             Log.d(TAG, "enableClick: time to disable");
             b.setText("disable");
-
             Log.d(TAG, "enableClick: " + id);
             db.updateEnable(0, id);
         }
@@ -128,7 +122,6 @@ public class DisplaySites extends AppCompatActivity {
             b.setText("enable");
             db.updateEnable(1, id);
             Log.d(TAG, "enableClick: " + id);
-
         }
         Log.d(TAG, "testClick: " + view.getTag());
     }
