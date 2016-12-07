@@ -18,12 +18,13 @@ public class MainActivity extends AppCompatActivity {
     PendingIntent pendingIntent;
     AppStatus appStatus;
     public String currentStatus;
+    private int timeDelay = 600 * 100  * 30;
 
     public  void timerStart(){
         alarmManager=(AlarmManager) getSystemService(Context.ALARM_SERVICE);
         intent = new Intent(this, SampleBootReceiver.class);
         pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
-        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,System.currentTimeMillis(),6000,
+        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,System.currentTimeMillis(),timeDelay,
                 pendingIntent);
         Log.d(TAG, "timerStart was: " + appStatus.getAppStatus(this));
         appStatus.setAppStatus("on", this);

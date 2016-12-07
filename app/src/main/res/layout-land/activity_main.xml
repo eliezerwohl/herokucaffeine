@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.eliezerwohl.herokucaffeine.MainActivity">
+
+    <Button
+        android:text="create new site"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/createNewSite"
+        android:layout_marginTop="56dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="88dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="88dp"/>
+
+    <Button
+        android:text="Edit Pref"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/viewAll"
+        android:onClick="displaySites"
+        app:layout_constraintRight_toRightOf="@+id/createNewSite"
+        app:layout_constraintLeft_toLeftOf="@+id/createNewSite"
+        android:layout_marginTop="72dp"
+        app:layout_constraintTop_toBottomOf="@+id/createNewSite"
+        app:layout_constraintHorizontal_bias="0.4"/>
+
+    <Button
+        android:text="off"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/currentStatusButton"
+        app:layout_constraintRight_toRightOf="@+id/statusText"
+        app:layout_constraintLeft_toLeftOf="@+id/statusText"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintVertical_bias="0.25"
+        app:layout_constraintBaseline_toBaselineOf="@+id/viewAll"/>
+
+    <TextView
+        android:text="current Status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/statusText"
+        app:layout_constraintLeft_toLeftOf="@+id/jolt"
+        android:layout_marginTop="48dp"
+        app:layout_constraintTop_toBottomOf="@+id/jolt"
+        app:layout_constraintRight_toRightOf="@+id/jolt"
+        app:layout_constraintHorizontal_bias="1.0"
+        />
+
+    <Button
+        android:text="jolt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/jolt"
+        app:layout_constraintBaseline_toBaselineOf="@+id/createNewSite"
+        android:layout_marginStart="160dp"
+        app:layout_constraintLeft_toRightOf="@+id/createNewSite"
+        android:layout_marginLeft="160dp"/>
+
+</android.support.constraint.ConstraintLayout>
