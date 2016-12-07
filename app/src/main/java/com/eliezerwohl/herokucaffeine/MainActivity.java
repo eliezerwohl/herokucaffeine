@@ -33,7 +33,9 @@ public class MainActivity extends AppCompatActivity {
     public void timerStop(){
         Log.d(TAG, "timerStop: STOP");
 //        appStatus.setAppStatus("off", this);
-        alarmManager.cancel(pendingIntent);
+        if (pendingIntent !=null){
+            alarmManager.cancel(pendingIntent);
+        }
    Log.d(TAG, "timerStart was: " + appStatus.getAppStatus(this));
         appStatus.setAppStatus("off", this);
         Log.d(TAG, "timerStart now is: " + appStatus.getAppStatus(this));
@@ -49,15 +51,21 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         appStatus = new AppStatus();
         final Button currentStatusButton = (Button) findViewById(R.id.currentStatusButton);
-//        if (appStatus.getAppStatus(this).equals("off")){
-//            Log.d(TAG, "appStatus: off");
-//            currentStatus = "off";
-//        }
-//        else {
-//            Log.d(TAG, "appStatus: on ");
-//            currentStatus = "off";
-//        }
-//        currentStatusButton.setText(currentStatus);
+        if (appStatus.getAppStatus(this) != null){
+            if (appStatus.getAppStatus(this).equals("off")){
+                Log.d(TAG, "appStatus: off");
+                currentStatus = "off";
+            }
+            else {
+                Log.d(TAG, "appStatus: on ");
+                currentStatus = "on";
+            }
+        }
+        else{
+            currentStatus = "off";
+        }
+
+        currentStatusButton.setText(currentStatus);
 
         currentStatusButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
