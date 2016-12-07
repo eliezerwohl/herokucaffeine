@@ -10,6 +10,7 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.R.attr.enabled;
 import static android.content.ContentValues.TAG;
 import static com.eliezerwohl.herokucaffeine.MainActivity.db;
 
@@ -141,6 +142,13 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
         ContentValues values = new ContentValues();
         values.put("enabled", status);
         String other ="UPDATE SITE SET enabled = '" + status +"' where id= " + id + ";";
+        db.execSQL(other);
+
+    }
+    public void  updateUrl (String url, int id, String something) {
+        Log.d(TAG, "updateEnable: start");
+        db = this.getWritableDatabase();
+        String other ="UPDATE SITE SET " + something + " = '" + url +"' where id= " + id + ";";
         db.execSQL(other);
 
     }
