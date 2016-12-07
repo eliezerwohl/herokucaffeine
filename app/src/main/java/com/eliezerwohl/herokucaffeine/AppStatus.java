@@ -13,10 +13,8 @@ import static android.content.Context.MODE_PRIVATE;
 public class AppStatus {
     public String appStatus;
     public String key = "keyName";
-    public String editId;
     public String editKey ="editId";
-
-
+    
     public String getAppStatus(Context context) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         String appStatus = preferences.getString(key, null);
@@ -35,7 +33,6 @@ public class AppStatus {
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString(editKey, editId);
         editor.commit();
-
     }
     public String getEditId(Context context){
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);

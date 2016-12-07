@@ -12,7 +12,6 @@ import static android.content.ContentValues.TAG;
  */
 
 public class SampleBootReceiver extends BroadcastReceiver {
-
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.d(TAG, "onReceive: gett something");

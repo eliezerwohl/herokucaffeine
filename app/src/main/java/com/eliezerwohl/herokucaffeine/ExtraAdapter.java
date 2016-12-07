@@ -38,7 +38,7 @@ public class ExtraAdapter extends ArrayAdapter<Site> {
         Site item = getItem(position);
         int id = item.getId();
         radio.setTag(id);
-       int enabledStatus = item.getEnabled();
+        int enabledStatus = item.getEnabled();
         Log.d(TAG, "getView URL: " + item.getUrl());
         String site = item.getSite();
         if (enabledStatus == 1){
@@ -51,5 +51,4 @@ public class ExtraAdapter extends ArrayAdapter<Site> {
         enableButton.setTag(id);
         return customView;
     }
-
 }

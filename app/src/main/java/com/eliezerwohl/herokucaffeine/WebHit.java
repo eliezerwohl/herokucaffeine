@@ -26,7 +26,6 @@ public class WebHit extends AsyncTask<ArrayList<String>, Void,  String>{
             Log.d(TAG, "ConnectToSite: starting url" + urlString);
            URL url = new URL(urlString);
             urlConnection = (HttpURLConnection) url.openConnection();
-            //maybe get rid of this next line?  is needed? yes it is
             InputStream in = new BufferedInputStream(urlConnection.getInputStream());
             urlConnection.disconnect();
         }
@@ -34,8 +33,6 @@ public class WebHit extends AsyncTask<ArrayList<String>, Void,  String>{
             e.printStackTrace();
         }catch (IOException e){
             e.printStackTrace();
-        }finally {
-
         }
     }
 

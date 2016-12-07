@@ -33,7 +33,6 @@ public class EditSite extends AppCompatActivity {
         Button saveEdit = (Button) findViewById(R.id.saveEdit) ;
         saveEdit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-
                if(!editUrl.getText().toString().equals(tempUrl)){
                    db.editUpdate(editUrl.getText().toString(), tempId, "url" );
                }

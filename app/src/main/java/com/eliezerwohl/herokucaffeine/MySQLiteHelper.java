@@ -6,10 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import static android.content.ContentValues.TAG;
 
 
@@ -56,7 +54,6 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
         values.put("enabled", 1); // get title
         values.put("site", string); // get title
         values.put("url", url);
-
         // 3. insert
         db.insert("site", // table
                 null, //nullColumnHack
@@ -65,15 +62,12 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
         // 4. close
        String query =  "SELECT COUNT(*) FROM SITE";
         String other = "DESCRIBE SITE";
-//        Cursor other2 = db.rawQuery(other, null);
-//        Log.d(TAG, "addBook: "  + other2);
         Cursor count = db.rawQuery(query, null);
         if (count.getCount() > 0 ){
             count.moveToFirst();
            int returnCount = count.getInt(0);
             Log.d(TAG, "addBook: " + returnCount);
         }
-
         Log.d(TAG, "addBook: complete");
     }
 
@@ -160,7 +154,6 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
                 site.setUrl(cursor.getString(2));
             } while (cursor.moveToNext());
         }
-
         return site;
     }
 }
