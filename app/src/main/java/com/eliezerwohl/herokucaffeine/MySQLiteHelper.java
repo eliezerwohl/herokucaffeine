@@ -3,7 +3,9 @@ package com.eliezerwohl.herokucaffeine;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteCantOpenDatabaseException;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
@@ -22,6 +24,19 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
     private static final String dbName = "siteDb";
     private SQLiteDatabase db;
 
+    public boolean checkDataBase() {
+        SQLiteDatabase checkDB = null;
+        Boolean result = true;
+        try {
+            checkDB = this.getReadableDatabase();
+
+        } catch (Exception e) {
+            Log.d(TAG, "checkDataBase: doesn't exist");
+            result = false;
+            // database doesn't exist yet.
+        }
+        return result;
+    }
 
     public MySQLiteHelper(Context context){
         super(context, dbName, null, dbVersion);
@@ -35,8 +50,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
                 "site TEXT, url TEXT, enabled INTEGER DEFAULT 1)";
         // create books table
        db.execSQL(CREATE_SITE_TABLE);
-
-
+       db.close();
     }
 
     @Override
@@ -63,18 +77,15 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
                 values); // key/value -> keys = column names/ values = column values
 
         // 4. close
-       String query =  "SELECT COUNT(*) FROM SITE";
-        String other = "DESCRIBE SITE";
-//        Cursor other2 = db.rawQuery(other, null);
-//        Log.d(TAG, "addBook: "  + other2);
+        String query =  "SELECT COUNT(*) FROM SITE";
         Cursor count = db.rawQuery(query, null);
         if (count.getCount() > 0 ){
             count.moveToFirst();
            int returnCount = count.getInt(0);
             Log.d(TAG, "addBook: " + returnCount);
         }
-
         Log.d(TAG, "addBook: complete");
+        db.close();
     }
 
     // Getting All
@@ -84,10 +95,11 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
         List<Site> sitetList = new ArrayList<Site>();
         // Select All Query
         String selectQuery = "SELECT  * FROM SITE";
+
         db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
-        if (cursor.getCount() == 0){
-
+        if ((cursor.getCount() == 0 ) || (cursor == null)){
+            sitetList=null;
         }
         else {
             // looping through all rows and adding to list
@@ -101,13 +113,12 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
                     site.setUrl(cursor.getString(2));
                     // Adding contact to list
                     sitetList.add(site);
-//
                 } while (cursor.moveToNext());
             }
         }
         Log.d(TAG, "getAllSites: ends");
+        db.close();
         return sitetList;
-
     }
 
     public ArrayList<String> getUrl(){
@@ -121,30 +132,31 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
                 urlList.add(cursor.getString(0));
             } while (cursor.moveToNext());
         }
+        db.close();
         return urlList;
     }
     public void  delete(int id) {
-        SQLiteDatabase db = this.getWritableDatabase();
+        db = this.getWritableDatabase();
         Log.d(TAG, "delete: gonna delete this:" + id);
         String query ="DELETE FROM site where id =" + id +";";
         db.execSQL(query);
 //        db.close();
         Log.d(TAG, "delete: completed");
-
+        db.close();
     }
     public void  updateEnable(int status, int id) {
         Log.d(TAG, "updateEnable: start");
         db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put("enabled", status);
         String other ="UPDATE SITE SET enabled = '" + status +"' where id= " + id + ";";
         db.execSQL(other);
+        db.close();
     }
     public void  editUpdate (String url, int id, String col) {
         Log.d(TAG, "updateEnable: start");
         db = this.getWritableDatabase();
         String other ="UPDATE SITE SET " + col + " = '" + url +"' where id= " + id + ";";
         db.execSQL(other);
+        db.close();
     }
 
     public Site editSite(int id){
@@ -160,7 +172,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
                 site.setUrl(cursor.getString(2));
             } while (cursor.moveToNext());
         }
-
+        db.close();
         return site;
     }
 }
