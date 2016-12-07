@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.content.ContentValues.TAG;
-import static com.eliezerwohl.herokucaffeine.MainActivity.db;
 
 
 /**
@@ -107,7 +106,6 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
             }
         }
         Log.d(TAG, "getAllSites: ends");
-
         return sitetList;
 
     }
@@ -123,7 +121,6 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
                 urlList.add(cursor.getString(0));
             } while (cursor.moveToNext());
         }
-
         return urlList;
     }
     public void  delete(int id) {
@@ -142,7 +139,12 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
         values.put("enabled", status);
         String other ="UPDATE SITE SET enabled = '" + status +"' where id= " + id + ";";
         db.execSQL(other);
-
+    }
+    public void  editUpdate (String url, int id, String col) {
+        Log.d(TAG, "updateEnable: start");
+        db = this.getWritableDatabase();
+        String other ="UPDATE SITE SET " + col + " = '" + url +"' where id= " + id + ";";
+        db.execSQL(other);
     }
 
     public Site editSite(int id){
@@ -152,19 +154,12 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
         Site site = new Site();
         if (cursor.moveToFirst()) {
             do {
-
                 site.setId(Integer.parseInt(cursor.getString(0)));
                 site.setSite(cursor.getString(1));
                 site.setEnabled(Integer.parseInt(cursor.getString(3)));
                 site.setUrl(cursor.getString(2));
-                // Adding contact to list
-//
             } while (cursor.moveToNext());
         }
-//        Site site = new Site ();
-//
-//        site.setSite(cursor.getString(1));
-//        site.setUrl(cursor.getString(2));
 
         return site;
     }
