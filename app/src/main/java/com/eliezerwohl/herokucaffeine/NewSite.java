@@ -35,6 +35,7 @@ public class NewSite extends AppCompatActivity {
             public void onClick(View view) {
                 String url = urlInput.getText().toString();
                 String toSave = input.getText().toString();
+
                 db.addSite(toSave, url);
                 urlInput.setText("");
                 input.setText("");
