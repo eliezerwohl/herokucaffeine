@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.content.ContentValues.TAG;
-
+import static com.eliezerwohl.herokucaffeine.MainActivity.db;
 
 
 /**
@@ -35,7 +35,9 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "site TEXT, url TEXT, enabled INTEGER DEFAULT 1)";
         // create books table
-        db.execSQL(CREATE_SITE_TABLE);
+       db.execSQL(CREATE_SITE_TABLE);
+
+
     }
 
     @Override
@@ -109,6 +111,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
         return sitetList;
 
     }
+
     public ArrayList<String> getUrl(){
         db = this.getWritableDatabase();
         ArrayList<String> urlList = new ArrayList<>();
@@ -128,7 +131,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
         Log.d(TAG, "delete: gonna delete this:" + id);
         String query ="DELETE FROM site where id =" + id +";";
         db.execSQL(query);
-        db.close();
+//        db.close();
         Log.d(TAG, "delete: completed");
 
     }
@@ -140,5 +143,29 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
         String other ="UPDATE SITE SET enabled = '" + status +"' where id= " + id + ";";
         db.execSQL(other);
 
+    }
+
+    public Site editSite(int id){
+        db = this.getWritableDatabase();
+        String selectQuery = "SELECT * from site where id = " + id + ";";
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        Site site = new Site();
+        if (cursor.moveToFirst()) {
+            do {
+
+                site.setId(Integer.parseInt(cursor.getString(0)));
+                site.setSite(cursor.getString(1));
+                site.setEnabled(Integer.parseInt(cursor.getString(3)));
+                site.setUrl(cursor.getString(2));
+                // Adding contact to list
+//
+            } while (cursor.moveToNext());
+        }
+//        Site site = new Site ();
+//
+//        site.setSite(cursor.getString(1));
+//        site.setUrl(cursor.getString(2));
+
+        return site;
     }
 }
