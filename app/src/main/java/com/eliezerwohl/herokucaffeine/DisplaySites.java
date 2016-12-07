@@ -22,6 +22,7 @@ import static android.R.attr.id;
 import static android.R.attr.tag;
 import static com.eliezerwohl.herokucaffeine.MainActivity.db;
 
+
 public class DisplaySites extends AppCompatActivity {
     private RadioButton listRadioButton = null;
     int listIndex = -1;

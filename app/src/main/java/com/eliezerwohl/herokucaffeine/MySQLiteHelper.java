@@ -11,8 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.content.ContentValues.TAG;
-import static android.os.FileObserver.DELETE;
-import static com.eliezerwohl.herokucaffeine.MainActivity.db;
+
 
 
 /**
@@ -22,6 +21,7 @@ import static com.eliezerwohl.herokucaffeine.MainActivity.db;
 public class MySQLiteHelper extends SQLiteOpenHelper{
     private static final int dbVersion =1;
     private static final String dbName = "siteDb";
+    private SQLiteDatabase db;
 
 
     public MySQLiteHelper(Context context){
@@ -36,7 +36,6 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
                 "site TEXT, url TEXT, enabled INTEGER DEFAULT 1)";
         // create books table
         db.execSQL(CREATE_SITE_TABLE);
-        db.close();
     }
 
     @Override
@@ -50,7 +49,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
 
     public void addSite(String string, String url){
         // 1. get reference to writable DB
-        SQLiteDatabase db = this.getWritableDatabase();
+        db = this.getWritableDatabase();
         // 2. create ContentValues to add key "column"/value
         ContentValues values = new ContentValues();
         values.put("enabled", 1); // get title
@@ -73,7 +72,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
            int returnCount = count.getInt(0);
             Log.d(TAG, "addBook: " + returnCount);
         }
-        db.close();
+
         Log.d(TAG, "addBook: complete");
     }
 
@@ -84,7 +83,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
         List<Site> sitetList = new ArrayList<Site>();
         // Select All Query
         String selectQuery = "SELECT  * FROM SITE";
-        SQLiteDatabase db = this.getWritableDatabase();
+        db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor.getCount() == 0){
 
@@ -106,12 +105,12 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
             }
         }
         Log.d(TAG, "getAllSites: ends");
-        db.close();
+
         return sitetList;
 
     }
     public ArrayList<String> getUrl(){
-        SQLiteDatabase db = this.getWritableDatabase();
+        db = this.getWritableDatabase();
         ArrayList<String> urlList = new ArrayList<>();
       //        SELECT owner FROM pet;
         String raw = "SELECT URL FROM SITE WHERE enabled = 1";
@@ -121,7 +120,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
                 urlList.add(cursor.getString(0));
             } while (cursor.moveToNext());
         }
-        db.close();
+
         return urlList;
     }
     public void  delete(int id) {
@@ -135,11 +134,11 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
     }
     public void  updateEnable(int status, int id) {
         Log.d(TAG, "updateEnable: start");
-        SQLiteDatabase db = this.getWritableDatabase();
+        db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("enabled", status);
         String other ="UPDATE SITE SET enabled = '" + status +"' where id= " + id + ";";
         db.execSQL(other);
-        db.close();
+
     }
 }

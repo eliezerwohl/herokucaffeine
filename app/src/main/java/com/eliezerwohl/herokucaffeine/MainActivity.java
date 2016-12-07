@@ -45,18 +45,19 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         db = new MySQLiteHelper(this);
+
         setContentView(R.layout.activity_main);
         appStatus = new AppStatus();
         final Button currentStatusButton = (Button) findViewById(R.id.currentStatusButton);
-        if (appStatus.getAppStatus(this).equals("off")){
-            Log.d(TAG, "appStatus: off");
-            currentStatus = "off";
-        }
-        else {
-            Log.d(TAG, "appStatus: on ");
-            currentStatus = "off";
-        }
-        currentStatusButton.setText(currentStatus);
+//        if (appStatus.getAppStatus(this).equals("off")){
+//            Log.d(TAG, "appStatus: off");
+//            currentStatus = "off";
+//        }
+//        else {
+//            Log.d(TAG, "appStatus: on ");
+//            currentStatus = "off";
+//        }
+//        currentStatusButton.setText(currentStatus);
 
         currentStatusButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
