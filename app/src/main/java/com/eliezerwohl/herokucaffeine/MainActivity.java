@@ -11,44 +11,27 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import static com.eliezerwohl.herokucaffeine.R.id.jolt;
+
 public class MainActivity extends AppCompatActivity {
     final String TAG = "main";
     public static MySQLiteHelper db;
-    AlarmManager  alarmManager;
-    Intent intent;
-    PendingIntent pendingIntent;
-    AppStatus appStatus;
+    public AlarmManager  alarmManager;
+    private Intent intent;
+    private PendingIntent pendingIntent;
+    private AppStatus appStatus;
     public String currentStatus;
     private int timeDelay = 600 * 100  * 30;
-
-    public  void timerStart(){
-        alarmManager=(AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        intent = new Intent(this, SampleBootReceiver.class);
-        pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
-        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,System.currentTimeMillis(),timeDelay,
-                pendingIntent);
-        Log.d(TAG, "timerStart was: " + appStatus.getAppStatus(this));
-        appStatus.setAppStatus("on", this);
-        Log.d(TAG, "timerStart now is: " + appStatus.getAppStatus(this));
-    }
-    public void timerStop(){
-        Log.d(TAG, "timerStop: STOP");
-        if (pendingIntent !=null){
-            alarmManager.cancel(pendingIntent);
-        }
-   Log.d(TAG, "timerStart was: " + appStatus.getAppStatus(this));
-        appStatus.setAppStatus("off", this);
-        Log.d(TAG, "timerStart now is: " + appStatus.getAppStatus(this));
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         db = new MySQLiteHelper(this);
-
         setContentView(R.layout.activity_main);
         appStatus = new AppStatus();
         final Button currentStatusButton = (Button) findViewById(R.id.currentStatusButton);
+        Button next = (Button) findViewById(R.id.createNewSite);
+        Button jolt = (Button) findViewById(R.id.jolt);
         if (appStatus.getAppStatus(this) != null){
             if (appStatus.getAppStatus(this).equals("off")){
                 Log.d(TAG, "appStatus: off");
@@ -65,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
             currentStatus = "off";
             currentStatusButton.setBackgroundColor(Color.RED);
         }
-
         currentStatusButton.setText(currentStatus);
         currentStatusButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
@@ -83,8 +65,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button next = (Button) findViewById(R.id.createNewSite);
-        Button jolt = (Button) findViewById(R.id.jolt);
         jolt.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 WebHit webhit = new WebHit();
@@ -106,6 +86,26 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    public  void timerStart(){
+        alarmManager=(AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        intent = new Intent(this, SampleBootReceiver.class);
+        pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
+        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,System.currentTimeMillis(),timeDelay,
+                pendingIntent);
+        Log.d(TAG, "timerStart was: " + appStatus.getAppStatus(this));
+        appStatus.setAppStatus("on", this);
+        Log.d(TAG, "timerStart now is: " + appStatus.getAppStatus(this));
+    }
+    public void timerStop(){
+        Log.d(TAG, "timerStop: STOP");
+        if (pendingIntent !=null){
+            alarmManager.cancel(pendingIntent);
+        }
+        Log.d(TAG, "timerStart was: " + appStatus.getAppStatus(this));
+        appStatus.setAppStatus("off", this);
+        Log.d(TAG, "timerStart now is: " + appStatus.getAppStatus(this));
+    }
+
     public void displaySites(View view){
         startActivity(new Intent(this, DisplaySites.class));
     }
