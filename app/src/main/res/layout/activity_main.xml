@@ -10,33 +10,33 @@
 
     <Button
         android:text="create new site"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:id="@+id/createNewSite"
-        android:layout_marginTop="24dp"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="16dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginRight="16dp"
-        android:layout_marginStart="16dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginLeft="16dp"/>
+        android:layout_marginTop="40dp"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <Button
-        android:text="Edit Pref"
-        android:layout_width="wrap_content"
+        android:text="Edit"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:id="@+id/viewAll"
         android:onClick="displaySites"
         app:layout_constraintRight_toRightOf="@+id/createNewSite"
         app:layout_constraintLeft_toLeftOf="@+id/createNewSite"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="48dp"
         app:layout_constraintTop_toBottomOf="@+id/createNewSite"
-        app:layout_constraintHorizontal_bias="0.46"/>
+        app:layout_constraintHorizontal_bias="0.0"/>
 
     <Button
         android:text="off"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -45,28 +45,32 @@
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginRight="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="32dp"
         android:id="@+id/currentStatusButton"/>
 
     <TextView
-        android:text="current Status"
-        android:layout_width="wrap_content"
+        android:text="Current Status"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:id="@+id/statusText"
         app:layout_constraintRight_toRightOf="@+id/currentStatusButton"
         app:layout_constraintLeft_toLeftOf="@+id/currentStatusButton"
         app:layout_constraintBottom_toTopOf="@+id/currentStatusButton"
-        android:layout_marginBottom="8dp"/>
+        android:layout_marginBottom="8dp"
+        android:fontFamily="sans-serif"
+        android:textStyle="normal|bold"
+        android:textAlignment="center"
+        app:layout_constraintHorizontal_bias="0.0"/>
 
     <Button
         android:text="jolt"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:id="@+id/jolt"
         app:layout_constraintRight_toRightOf="@+id/viewAll"
         app:layout_constraintLeft_toLeftOf="@+id/viewAll"
-        android:layout_marginTop="96dp"
+        android:layout_marginTop="48dp"
         app:layout_constraintTop_toBottomOf="@+id/viewAll"
-        app:layout_constraintHorizontal_bias="0.0"/>
+        app:layout_constraintHorizontal_bias="1.0"/>
 
 </android.support.constraint.ConstraintLayout>
