@@ -24,7 +24,7 @@ public class ExtraAdapter extends ArrayAdapter<Site> {
     private List <Site> siteList;
     private int currentSelected;
 
-    public ExtraAdapter(Context context, int resource, List<Site> siteList) {
+    public ExtraAdapter( Context context, int resource, List<Site> siteList) {
         super(context, R.layout.displayrow, siteList);
         this.siteList = siteList;
     }

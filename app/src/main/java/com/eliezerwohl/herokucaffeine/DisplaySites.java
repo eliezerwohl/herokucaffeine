@@ -10,16 +10,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RadioButton;
 
 import java.util.List;
-
-import static android.R.attr.id;
-import static android.R.attr.tag;
 import static com.eliezerwohl.herokucaffeine.MainActivity.db;
 
 
@@ -27,10 +22,14 @@ public class DisplaySites extends AppCompatActivity {
     private RadioButton listRadioButton = null;
     int listIndex = -1;
     public String currentId;
-//    ExtraAdapter adapter;
-    public String getCurrentId(){
-        return currentId;
+
+    public void loadPage(){
+        ListView lv = (ListView) findViewById(R.id.listView);
+        List siteList = db.getAllSites();
+        ExtraAdapter adapter = new ExtraAdapter(this, R.layout.displayrow, siteList);
+        lv.setAdapter(adapter);
     }
+
     @Override
     public void supportInvalidateOptionsMenu() {
         super.supportInvalidateOptionsMenu();
@@ -46,10 +45,7 @@ public class DisplaySites extends AppCompatActivity {
        protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_sites);
-        ListView lv = (ListView) findViewById(R.id.listView);
-        List testList = db.getAllSites();
-        ExtraAdapter adapter = new ExtraAdapter(this, R.layout.displayrow, testList);
-        lv.setAdapter(adapter);
+        loadPage();
     }
     public void onClickRadioButton(View v){
         Log.d(TAG, "onClickRadioButton: button click");
@@ -63,8 +59,6 @@ public class DisplaySites extends AppCompatActivity {
         Log.d(TAG, "onClickRadioButton: the id is" + currentId);
         listRadioButton = (RadioButton) v;
         listIndex = newIndex;
-
-
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -79,11 +73,7 @@ public class DisplaySites extends AppCompatActivity {
                            Log.d(TAG, "onClick: YES");
                            MySQLiteHelper db = new MySQLiteHelper(DisplaySites.this);
                            db.delete(Integer.parseInt(currentId));
-                           ListView lv = (ListView) findViewById(R.id.listView);
-                           List testList = db.getAllSites();
-                           ExtraAdapter adapter = new ExtraAdapter(DisplaySites.this, R.layout.displayrow, testList);
-                           lv.setAdapter(adapter);
-                           db.close();
+                           loadPage();
                            dialog.cancel();
                        }
                    })
@@ -94,7 +84,6 @@ public class DisplaySites extends AppCompatActivity {
                        }
                    }) ;
            AlertDialog alert = a_builder.create();
-           alert.setTitle("Alert !!!");
            alert.show();
        }
         else if ((id == R.id.editItem) && (currentId != null)) {
@@ -124,6 +113,7 @@ public class DisplaySites extends AppCompatActivity {
             Log.d(TAG, "enableClick: " + id);
         }
         Log.d(TAG, "testClick: " + view.getTag());
+        loadPage();
     }
 
 }

@@ -20,9 +20,9 @@ public class EditSite extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_site);
         AppStatus appStatus = new AppStatus();
-        String tempVar = appStatus.getEditId(this);
-        Log.d(TAG, "onCreate: " + tempVar);
-        Site tempSiteObject = db.editSite(Integer.parseInt(tempVar));
+        String editId = appStatus.getEditId(this);
+        Log.d(TAG, "onCreate: " + editId);
+        Site tempSiteObject = db.editSite(Integer.parseInt(editId));
         tempUrl = tempSiteObject.getUrl();
         tempSite = tempSiteObject.getSite();
         tempId = tempSiteObject.getId();
