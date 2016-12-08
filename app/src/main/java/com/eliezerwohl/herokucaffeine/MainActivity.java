@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Icon;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,19 +15,17 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import static android.R.string.no;
-import static android.os.Build.VERSION_CODES.N;
-import static com.eliezerwohl.herokucaffeine.R.id.jolt;
-
 public class MainActivity extends AppCompatActivity {
     final String TAG = "main";
     public static MySQLiteHelper db;
     public AlarmManager  alarmManager;
-    private Intent intent;
-    private PendingIntent pendingIntent;
-    private AppStatus appStatus;
+    public Intent intent;
+    public PendingIntent pendingIntent;
+    public AppStatus appStatus;
     public String currentStatus;
-    private int timeDelay = 600 * 100  * 30;
+    public int timeDelay = 600 * 100  * 30;
+    public int mId = 4242;
+    Button currentStatusButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,47 +33,37 @@ public class MainActivity extends AppCompatActivity {
         db = new MySQLiteHelper(this);
         setContentView(R.layout.activity_main);
         appStatus = new AppStatus();
-        final Button currentStatusButton = (Button) findViewById(R.id.currentStatusButton);
+        currentStatusButton = (Button) findViewById(R.id.currentStatusButton);
         Button next = (Button) findViewById(R.id.createNewSite);
         Button jolt = (Button) findViewById(R.id.jolt);
         if (appStatus.getAppStatus(this) != null){
             if (appStatus.getAppStatus(this).equals("off")){
-                Log.d(TAG, "appStatus: off");
-                currentStatus = "off";
-                currentStatusButton.setBackgroundColor(Color.RED);
+              statusOff();
             }
             else {
-                Log.d(TAG, "appStatus: on ");
-                currentStatus = "on";
-                currentStatusButton.setBackgroundColor(Color.GREEN);
+               statusOff();
             }
 
         }
         else{
-            currentStatus = "off";
-            currentStatusButton.setBackgroundColor(Color.RED);
+            statusOff();
+
         }
         notifyUser(currentStatus);
         currentStatusButton.setText(currentStatus);
         currentStatusButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
                 if (currentStatus.equals("off")){
-                    currentStatus = "on";
                     timerStart();
-                    currentStatusButton.setBackgroundColor(Color.GREEN);
-
+                    statusOn();
                 }
                 else{
-                    currentStatus = "off";
+                    statusOff();
                     timerStop();
-                    currentStatusButton.setBackgroundColor(Color.RED);
-
                 }
                 notifyUser(currentStatus);
                 currentStatusButton.setText(currentStatus);
-
             }
-
         });
 
         jolt.setOnClickListener(new View.OnClickListener() {
@@ -97,7 +86,14 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(myIntent, 0);
             }
         });
-
+    }
+    public void statusOn(){
+        currentStatus = "on";
+        currentStatusButton.setBackgroundColor(Color.GREEN);
+    }
+    public void statusOff(){
+        currentStatus = "off";
+        currentStatusButton.setBackgroundColor(Color.RED);
 
     }
     public  void timerStart(){
@@ -128,17 +124,12 @@ public class MainActivity extends AppCompatActivity {
                 new NotificationCompat.Builder(this)
                         .setSmallIcon(R.drawable.coffee)
                         .setContentTitle("HEROKU CAFFEINE")
-                        .setContentText(string);
+                        .setContentText("Status: " + string);
         Intent resultIntent = new Intent(this, MainActivity.class);
-
-// The stack builder object will contain an artificial back stack for the
-// started Activity.
-// This ensures that navigating backward from the Activity leads out of
-// your application to the Home screen.
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-// Adds the back stack for the Intent (but not the Intent itself)
+        // Adds the back stack for the Intent (but not the Intent itself)
         stackBuilder.addParentStack(MainActivity.class);
-// Adds the Intent that starts the Activity to the top of the stack
+        // Adds the Intent that starts the Activity to the top of the stack
         stackBuilder.addNextIntent(resultIntent);
         PendingIntent resultPendingIntent =
                 stackBuilder.getPendingIntent(
@@ -148,8 +139,8 @@ public class MainActivity extends AppCompatActivity {
         builder.setContentIntent(resultPendingIntent);
         NotificationManager mNotificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-// mId allows you to update the notification later on.
-        mNotificationManager.notify(1, builder.build());
+        // mId allows you to update the notification later on.
+        mNotificationManager.notify(mId, builder.build());
     }
 //    Toast.makeText(this, "Alarm Set", Toast.LENGTH_SHORT).show();
 }
