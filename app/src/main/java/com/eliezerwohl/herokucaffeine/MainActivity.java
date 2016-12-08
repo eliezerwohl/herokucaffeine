@@ -36,18 +36,20 @@ public class MainActivity extends AppCompatActivity {
         currentStatusButton = (Button) findViewById(R.id.currentStatusButton);
         Button next = (Button) findViewById(R.id.createNewSite);
         Button jolt = (Button) findViewById(R.id.jolt);
+        Log.d(TAG, "setAppStatus: current condition " + appStatus.getAppStatus(this));
         if (appStatus.getAppStatus(this) != null){
+            Log.d(TAG, "onCreate: current condition " + appStatus.getAppStatus(this));
             if (appStatus.getAppStatus(this).equals("off")){
+                Log.d(TAG, "onCreate: apptatus");
               statusOff();
             }
             else {
-               statusOff();
+               statusOn();
             }
 
         }
         else{
             statusOff();
-
         }
         notifyUser(currentStatus);
         currentStatusButton.setText(currentStatus);
@@ -97,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
     public  void timerStart(){
+        Log.d(TAG, "timerStart: start");
         alarmManager=(AlarmManager) getSystemService(Context.ALARM_SERVICE);
         intent = new Intent(this, SampleBootReceiver.class);
         pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
@@ -104,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
                 pendingIntent);
         Log.d(TAG, "timerStart was: " + appStatus.getAppStatus(this));
         appStatus.setAppStatus("on", this);
+        Log.d(TAG, "setAppStatus: current condition " + appStatus.getAppStatus(this));
         Log.d(TAG, "timerStart now is: " + appStatus.getAppStatus(this));
     }
     public void timerStop(){
@@ -113,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
         }
         Log.d(TAG, "timerStart was: " + appStatus.getAppStatus(this));
         appStatus.setAppStatus("off", this);
+        Log.d(TAG, "setAppStatus: current condition " + appStatus.getAppStatus(this));
         Log.d(TAG, "timerStart now is: " + appStatus.getAppStatus(this));
     }
 
