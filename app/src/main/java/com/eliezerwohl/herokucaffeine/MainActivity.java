@@ -4,6 +4,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -52,14 +53,17 @@ public class MainActivity extends AppCompatActivity {
             if (appStatus.getAppStatus(this).equals("off")){
                 Log.d(TAG, "appStatus: off");
                 currentStatus = "off";
+                currentStatusButton.setBackgroundColor(Color.RED);
             }
             else {
                 Log.d(TAG, "appStatus: on ");
                 currentStatus = "on";
+                currentStatusButton.setBackgroundColor(Color.GREEN);
             }
         }
         else{
             currentStatus = "off";
+            currentStatusButton.setBackgroundColor(Color.RED);
         }
 
         currentStatusButton.setText(currentStatus);
@@ -68,10 +72,12 @@ public class MainActivity extends AppCompatActivity {
                 if (currentStatus.equals("off")){
                     currentStatus = "on";
                     timerStart();
+                    currentStatusButton.setBackgroundColor(Color.GREEN);
                 }
                 else{
                     currentStatus = "off";
                     timerStop();
+                    currentStatusButton.setBackgroundColor(Color.RED);
                 }
                 currentStatusButton.setText(currentStatus);
             }
