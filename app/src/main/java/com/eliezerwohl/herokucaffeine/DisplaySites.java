@@ -9,24 +9,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.RadioButton;
-
-import java.util.List;
 import static com.eliezerwohl.herokucaffeine.MainActivity.db;
-
 
 public class DisplaySites extends AppCompatActivity {
     private RadioButton listRadioButton = null;
     int listIndex = -1;
     public String currentId;
-
-    public void loadPage(){
-        ListView lv = (ListView) findViewById(R.id.listView);
-        List siteList = db.getAllSites();
-        ExtraAdapter adapter = new ExtraAdapter(this, R.layout.displayrow, siteList);
-        lv.setAdapter(adapter);
-    }
+    DisplayFunctions mDisplayFunctions;
 
     @Override
     public void supportInvalidateOptionsMenu() {
@@ -43,7 +33,8 @@ public class DisplaySites extends AppCompatActivity {
        protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_sites);
-        loadPage();
+        mDisplayFunctions = new DisplayFunctions(this);
+        mDisplayFunctions.loadPage();
     }
     public void onClickRadioButton(View v){
         Log.d(TAG, "onClickRadioButton: button click");
@@ -62,8 +53,7 @@ public class DisplaySites extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
        int id = item.getItemId();
        if ((id == R.id.deleteButton) && (currentId != null)){
-           AlertBuilder alertBuilder = new AlertBuilder();
-           alertBuilder.alert(this, currentId);
+           mDisplayFunctions.alert(this, currentId);
        }
         else if ((id == R.id.editItem) && (currentId != null)) {
            Log.d(TAG, "onOptionsItemSelected: edit");
@@ -92,6 +82,6 @@ public class DisplaySites extends AppCompatActivity {
             Log.d(TAG, "enableClick: " + id);
         }
         Log.d(TAG, "testClick: " + view.getTag());
-        loadPage();
+        mDisplayFunctions.loadPage();
     }
 }

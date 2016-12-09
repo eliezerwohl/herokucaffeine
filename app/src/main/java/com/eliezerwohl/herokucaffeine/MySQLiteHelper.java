@@ -101,7 +101,6 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
         }
         Log.d(TAG, "getAllSites: ends");
         return sitetList;
-
     }
 
     public ArrayList<String> getUrl(){
