@@ -1,8 +1,6 @@
 package com.eliezerwohl.herokucaffeine;
 
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -64,27 +62,8 @@ public class DisplaySites extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
        int id = item.getItemId();
        if ((id == R.id.deleteButton) && (currentId != null)){
-           AlertDialog.Builder a_builder = new AlertDialog.Builder(this);
-           a_builder.setMessage("Do you want delete this site?")
-                   .setCancelable(false)
-                   .setPositiveButton("Yes",new DialogInterface.OnClickListener() {
-                       @Override
-                       public void onClick(DialogInterface dialog, int which) {
-                           Log.d(TAG, "onClick: YES");
-                           MySQLiteHelper db = new MySQLiteHelper(DisplaySites.this);
-                           db.delete(Integer.parseInt(currentId));
-                           loadPage();
-                           dialog.cancel();
-                       }
-                   })
-                   .setNegativeButton("No",new DialogInterface.OnClickListener() {
-                       @Override
-                       public void onClick(DialogInterface dialog, int which) {
-                           dialog.cancel();
-                       }
-                   }) ;
-           AlertDialog alert = a_builder.create();
-           alert.show();
+           AlertBuilder alertBuilder = new AlertBuilder();
+           alertBuilder.alert(this, currentId);
        }
         else if ((id == R.id.editItem) && (currentId != null)) {
            Log.d(TAG, "onOptionsItemSelected: edit");
@@ -115,5 +94,4 @@ public class DisplaySites extends AppCompatActivity {
         Log.d(TAG, "testClick: " + view.getTag());
         loadPage();
     }
-
 }
