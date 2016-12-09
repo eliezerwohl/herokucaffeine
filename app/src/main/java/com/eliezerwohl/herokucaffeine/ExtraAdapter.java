@@ -18,7 +18,6 @@ import java.util.List;
 public class ExtraAdapter extends ArrayAdapter<Site> {
     private static String TAG ="FeedAdapter";
     private List <Site> siteList;
-    private int currentSelected;
 
     public ExtraAdapter( Context context, int resource, List<Site> siteList) {
         super(context, R.layout.displayrow, siteList);
