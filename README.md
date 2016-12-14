@@ -1,3 +1,5 @@
 # herokucaffeine
+A program I wrote for my phone that prevents my Heroku sites from going to "sleep". Can be set to run and keep the sites up for a period of time, or it can wake all the sites up at once for presentation purposes. Developed using Android Studio and Java.  Alsso uses SQLite.
 
-Making a java application that will help keep my heroku site from going to sleep when I show them to people.  Also the project is really just an excuse to learn several things in android dev, including SQLite.
+
+Download App: http://eliezerwohl.herokuapp.com/download/herokucaffeine.apk
